@@ -35,4 +35,38 @@ print(a)
 b = data.iloc[0:2][['c1', 'c3']]
 print(b)
 
-print('test')
+c = data.iloc[0]['c3']#c3列第一行的值
+print(c)
+
+d = data.loc[['r1','r2'],['c1','c3']]#loc用字符串索引
+e = data.iloc[0:2,[0,2]]#iloc用数值作为索引
+print(d)
+print(e)
+
+data['c4'] = data['c3'] - data['c1']
+a = data.head()
+print(a)
+
+a = data[data['c1']>1]#c1列数字大于1的行
+print(a)
+
+b = data[(data['c1']>1)&(data['c2'] == 5)]
+print(b)
+
+a = data.sort_values(by='c2',ascending=False)#对c2列进行倒序排序
+print(a)
+
+a = a.sort_index()#按行索引进行升序排序
+print(a)
+
+a = data.drop(columns='c1')
+print(a)
+
+b = data.drop(columns=['c1','c3'])
+print(b)
+
+c = data.drop(index=['r1','r3'])#删除行
+print(c)
+
+
+
