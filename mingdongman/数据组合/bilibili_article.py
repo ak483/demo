@@ -6,13 +6,20 @@
 import pandas as pd
 import re
 
+# from My_code.Toolbox.Selenium import seleniumClass
+# from My_code.Toolbox.Download_Image import Download_Image
+# from My_code.名动漫.Mdm_API import ArticleClassAPI
+# from My_code.名动漫.Article_Published.Submit_SQL import Submit_Data
+from Get_Data_ import Data_Format
+
+
 FILE_PATH_DICT = {
     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
     '浏览器个人配置': r'G:\Selenium_UserData\BiLiBiLi\one',
     'B站专栏图下载': r'G:\Selenium_UserData\BiLiBiLi\one\image',
     '发布窗口': '',
     '编辑器': '',
-    '半自动洗稿项目': r'C:\Users\ASUS\Desktop\excel表\半自动洗稿项目-B站2.xlsx',
+    '半自动洗稿项目': r'D:\python私塾\Excel\半自动洗稿项目-B站.xlsx',
     '标题保存': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\标题2.xlsx',
     '原文配图': 'https://mdm-article.oss-cn-shenzhen.aliyuncs.com/Article_Image/Fifth_Batch',
     '配图': {
@@ -39,49 +46,57 @@ FILE_PATH_DICT = {
     },
 }
 
-mainExcelDict = pd.read_excel(
+
+def Get_Data(mod: str) -> list:#表示该函数返回的是列表的形式
+    # 读取模板
+    mainExcelDict = pd.read_excel(
         FILE_PATH_DICT['半自动洗稿项目'], sheet_name=[
             '第三批', '标题模板（通用）2', '首段模板（名动漫小站）2', '中间模板（名动漫小站）2', '尾段模板（名动漫小站）2'
-        ],keep_default_na=False
+        ]
+    )
+    mainExcelData = mainExcelDict['第三批']
+    titleExcelData = mainExcelDict['标题模板（通用）2']
+    firstParagraphExcelDataList = (mainExcelDict['首段模板（名动漫小站）2'])['模板'].to_list()
+    middleSectionExcelDataList = (mainExcelDict['中间模板（名动漫小站）2'])['模板'].to_list()
+    tailSectionExcelDataList = (mainExcelDict['尾段模板（名动漫小站）2'])['模板'].to_list()
+
+    # 筛选
+    mainExcelData = mainExcelData[(mainExcelData['发布状态'] != '已发布')]
+
+    keyList = mainExcelData['知识点'].to_list()
+    keyCategoryList = mainExcelData['知识点种类'].to_list()
+    articleContentList = mainExcelData['文章内容'].to_list()
+    articleClassificationNameList = mainExcelData['文章分类（名动漫小站）'].to_list()
+    pictureClassificationList = mainExcelData['配图分类'].to_list()
+    # 自定义课程
+    customizeCourseList = ['' for i in articleContentList]
+    # 自定义标题
+    customizeTitleList = ['' for i in articleContentList]
+    # customizeTitleList = mainExcelData['原始标题'].to_list()
+    # 自定义短标题
+    customizeTitleList_ = ['' for i in articleContentList]
+    # 自定义发布日期
+    timeDateList = ['' for i in articleContentList]
+
+    return Data_Format(
+        mod=mod, MAXINDEX=MAXINDEX, FILE_PATH_DICT=FILE_PATH_DICT, keyList=keyList, keyCategoryList=keyCategoryList, articleContentList=articleContentList,
+        articleClassificationNameList=articleClassificationNameList, pictureClassificationList=pictureClassificationList,
+        titleExcelData=titleExcelData, firstParagraphExcelDataList=firstParagraphExcelDataList, middleSectionExcelDataList=middleSectionExcelDataList,
+        tailSectionExcelDataList=tailSectionExcelDataList, customizeTitleList=customizeTitleList, customizeTitleList_=customizeTitleList_,
+        customizeCourseList=customizeCourseList, timeDateList=timeDateList
     )
 
-mainExcelData = mainExcelDict['第三批']
-titleExcelData = mainExcelDict['标题模板（通用）2']
-firstParagraphExcelDataList = (mainExcelDict['首段模板（名动漫小站）2'])['模板'].to_list()#提取所有模板内容，转化为列表
-middleSectionExcelDataList = (mainExcelDict['中间模板（名动漫小站）2'])['模板'].to_list()
-tailSectionExcelDataList = (mainExcelDict['尾段模板（名动漫小站）2'])['模板'].to_list()
+if __name__ == '__main__':
+    # 发布文章数目
+    MAXINDEX = 5
 
-mainExcelData = mainExcelData[(mainExcelData['发布状态'] != '已发布')]
+    Get_Data(mod='B站')
 
-keyList = mainExcelData['知识点'].to_list()
-keyCategoryList = mainExcelData['知识点种类'].to_list()
-articleContentList = mainExcelData['文章内容'].to_list()
-articleClassificationNameList = mainExcelData['文章分类（名动漫小站）'].to_list()
-pictureClassificationList = mainExcelData['配图分类'].to_list()
+    pass
 
-customizeCourseList = ['' for i in articleContentList]
-
-# print(mainExcelData)
-# print(titleExcelData)
-# print(firstParagraphExcelDataList)
-print(articleContentList)
-print(customizeCourseList)
-print(titleExcelData)
-
-dataSetList = []
-titleOneList = []
-
-
-keywordsClassificationName = '东西'
-
-for _, k in j.iterrows():
 #标题
 #定位到对应的标题分类列表，并将该列的‘{知识点\}’替换成对应的知识点
 #筛选出与这篇文章核心内容相同的的文章，将该标题与筛选出的文章的标题进行对比，如果标题相同，则更换标题，如果标题不同，则保留。
-
-#如果
-
-
 
 #首段
 #定位到对应的首段模板列表。
@@ -96,14 +111,3 @@ for _, k in j.iterrows():
 #筛选出与这篇文章核心内容相同的的文章，将该中段段与筛选出的文章的中段进行对比，如果中段段相同，则更换中段，如果中段不同，则保留。
 
 #配图：核心内容小于三段只添加配图1，核心内容大于三段首段后配图一，核心内容尾段前配图二
-
-    if keywordsClassificationName == '东西':
-        if str(k[2]) == 'nan':
-            continue
-        titleOneList.append(re.sub('\{知识点\}', keywords, str(k[2])))
-
-    elif keywordsClassificationName == '知识':
-        if str(k[3]) == 'nan':
-            continue
-        titleOneList.append(re.sub('\{知识点\}', keywords, str(k[3])))
-

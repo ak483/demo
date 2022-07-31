@@ -21,6 +21,8 @@ if __name__ == '__main__':
     <zip object at 0x000001D629E1F108>
     '''
     #     两个参数,谁先结束了,循环也就结束了
+    print(zip(range(0,6),range(0,5)))
+
     for x,c in zip(range(0,6),range(0,5)):
         print(x,c)
 

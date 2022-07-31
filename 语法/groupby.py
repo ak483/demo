@@ -14,9 +14,12 @@ if __name__ == '__main__':
 
 
     print(df)
-
+    #划分为若干个分组dataframe,对class进行分组
     print(df.groupby("class").groups)  # 返回字典，key是group label，value是axis labels（index）
+    print('-------------')
+    # print(list(df.groupby('class')))
+    # print('---------------')
     print(df.groupby(["class", "order"]).groups)
 
-
+    # df.groupby('mammal').agg({'max_speed':'median'})
 
