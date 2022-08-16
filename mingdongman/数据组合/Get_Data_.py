@@ -6,6 +6,7 @@
 import re, logging, random, html, time
 import pymysql
 import pandas as pd
+from lxml import etree
 
 mySQL = pymysql.connect(host='182.61.132.25', port=3306, user='python_test', password='pzkZW4SLhbARLKW4',database='python_test', charset='utf8')
 myCursor = mySQL.cursor()
@@ -353,7 +354,27 @@ def Data_Format(
         a = re.sub('\{标题\}', newTailSectionTitle, Paragraph_Deduplication(paragraphList=tailSectionExcelDataList, content=content, mod=mod))
         tailSection = f'<p>&nbsp; &nbsp; &nbsp; &nbsp; {a}</p><br />'
         # 配图1，配图2
-        a, b = random.sample([i for i in range(0, 100)], 2)
+        if contentClassificationName == '3D':
+            a, b = random.sample([i for i in range(0, 100)], 2)
+        elif contentClassificationName == '原画':
+            a, b = random.sample([i for i in range(0, 142)], 2)
+        elif contentClassificationName == '影视':
+            a, b = random.sample([i for i in range(0, 100)], 2)
+        elif contentClassificationName == '插画':
+            a, b = random.sample([i for i in range(0, 112)], 2)
+        elif contentClassificationName == '游戏UI':
+            a, b = random.sample([i for i in range(0, 100)], 2)
+        elif contentClassificationName == '漫画':
+            a, b = random.sample([i for i in range(0, 118)], 2)
+        elif contentClassificationName == '素描':
+            a, b = random.sample([i for i in range(0, 118)], 2)
+        elif contentClassificationName == '线稿':
+            a, b = random.sample([i for i in range(0, 181)], 2)
+        elif contentClassificationName == '绘画':
+            a, b = random.sample([i for i in range(0, 172)], 2)
+        else:
+            a, b = random.sample([i for i in range(0, 100)], 2)
+
         # 检查配图分类正不正确
         try:
             FILE_PATH_DICT['配图'][contentClassificationName]

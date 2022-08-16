@@ -19,7 +19,7 @@ FILE_PATH_DICT = {
     'B站专栏图下载': r'G:\Selenium_UserData\BiLiBiLi\one\image',
     '发布窗口': '',
     '编辑器': '',
-    '半自动洗稿项目': r'D:\python私塾\Excel\半自动洗稿项目-B站.xlsx',
+    '半自动洗稿项目': r'D:\untitled1\Excel\半自动洗稿项目-B站.xlsx',
     '标题保存': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\标题2.xlsx',
     '原文配图': 'https://mdm-article.oss-cn-shenzhen.aliyuncs.com/Article_Image/Fifth_Batch',
     '配图': {
