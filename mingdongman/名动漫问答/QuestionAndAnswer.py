@@ -13,8 +13,8 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 sys.path.append(r'D:\untitled1')
-from demo.mingdongman.数据组合.MdmAPI import ArticleClassAPI
-# from My_code.名动漫.Mdm_API import ArticleClassAPI
+# from demo.mingdongman.数据组合.MdmAPI import ArticleClassAPI
+from My_code.名动漫.Mdm_API import ArticleClassAPI
 
 
 dataSetList = []
@@ -156,7 +156,7 @@ FILE_PATH_DICT = {
 
 if __name__ == '__main__':
     # 发布文章数目
-    MAXINDEX = 1
+    MAXINDEX = 20
 
     Mdm_Article_Run(Get_Data(mod='名动漫小站-名动漫-问答'))
     pass
