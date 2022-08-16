@@ -15,8 +15,8 @@ if __name__ == '__main__':
       'platformName': 'Android', # 被测手机是安卓
       'platformVersion': '11', # 手机安卓版本
       'deviceName': '009', # 设备名，安卓手机可以随意填写
-      'appPackage': 'com.zhihu.android',  # 启动APP Package名称
-      'appActivity': '.app.ui.activity.LauncherActivity',  # 启动Activity名称
+      'appPackage': 'com.baidu.haokan',  # 启动APP Package名称
+      'appActivity': '.app.activity.HomeActivity',  # 启动Activity名称
       'unicodeKeyboard': True, # 使用自带输入法，输入中文时填True
       'resetKeyboard': True, # 执行完程序恢复原来输入法
       'noReset': True,       # 不要重置App
@@ -27,52 +27,49 @@ if __name__ == '__main__':
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     # 点击+按钮
-    time.sleep(10)
-    TouchAction(driver).tap(x=540, y=2220).perform()
-
-    # 点击添加视频
     time.sleep(6)
-    resourceId = 'com.zhihu.android:id/new_editor_drawee_iv'
+    resourceId = 'com.baidu.haokan:id/ds4'
     driver.find_element(By.ID, resourceId).click()
 
+    # 点击上传视频
+    time.sleep(6)
+    resourceId = 'com.baidu.haokan:id/dk6'
+    driver.find_element(By.ID, resourceId).click()
 
     # 选择第一个视频
     time.sleep(6)
-    TouchAction(driver).tap(x=600, y=320).perform()
+    TouchAction(driver).tap(x=200, y=400).perform()
 
     # 选择第二个视频
-    # TouchAction(driver).tap(x=1000, y=320.perform()
+    # TouchAction(driver).tap(x=500, y=400.perform()
 
     # 下一步
     time.sleep(6)
-    resourceId = 'com.zhihu.android:id/select_preview_next'
+    resourceId = 'com.baidu.capture:id/local_file_next_tv'
     driver.find_element(By.ID, resourceId).click()
 
-
-    #点击屏幕
+    # 打钩确定
     time.sleep(6)
+    resourceId = 'com.baidu.capture:id/iv_right'
+    driver.find_element(By.ID, resourceId).click()
 
-    #文本存入剪贴板
-    text='你好啊'
-    driver.set_clipboard_text(text)
-
-    # 长按弹出粘贴按钮
-    action = TouchAction(driver)
-    action.long_press(x=50,y=850).perform()
+    # 再次下一步
     time.sleep(6)
+    resourceId = 'com.baidu.capture:id/ugc_capture_preview_next'
+    driver.find_element(By.ID, resourceId).click()
 
-    # 点击粘贴
-    TouchAction(driver).tap(x=50, y=655).perform()
+    # 填写标题
+    time.sleep(6)
+    text = '真可爱美好'
+    resourceId = 'com.baidu.haokan:id/e9z'
+    driver.find_element(By.ID, resourceId).send_keys(text)
 
     # 发布
     time.sleep(6)
-    resourceId = 'com.zhihu.android:id/publish'
+    resourceId = 'com.baidu.haokan:id/e9i'
     driver.find_element(By.ID, resourceId).click()
 
     time.sleep(6)
-
-
-
 
     input('确定退出')
 

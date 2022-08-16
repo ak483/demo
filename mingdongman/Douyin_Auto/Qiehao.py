@@ -62,12 +62,12 @@ if __name__ == '__main__':
     resourceId = 'com.tencent.omapp:id/video_play_catalog_text_hint'
     driver.find_element(By.ID, resourceId).click()
 
+    # 选择分支
     time.sleep(6)
-    #选择分支
     driver.find_element('-android uiautomator', 'new UiSelector().text("动漫")').click()
 
+    # 再选择分支
     time.sleep(6)
-    #再选择分支
     driver.find_element('-android uiautomator', 'new UiSelector().text("宅文化")').click()
 
     # 发布

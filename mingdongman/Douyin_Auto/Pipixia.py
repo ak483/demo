@@ -27,4 +27,40 @@ if __name__ == '__main__':
       'automationName' : 'UiAutomator2'
     }
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    # 点击+按钮
+    time.sleep(10)
+    resourceId = 'com.sup.android.superb:id/bck'
+    driver.find_element(By.ID, resourceId).click()
+
+    # 选择第一个视频
     time.sleep(6)
+    TouchAction(driver).tap(x=310, y=630).perform()
+
+    # 选择第二个视频
+    # TouchAction(driver).tap(x=680, y=630).perform()
+
+    # 下一步
+    time.sleep(6)
+    resourceId = 'com.sup.android.superb:id/p6'
+    driver.find_element(By.ID, resourceId).click()
+
+    # 完成
+    time.sleep(6)
+    resourceId = 'com.sup.android.module.mp:id/btn_premiere_finish'
+    driver.find_element(By.ID, resourceId).click()
+
+    #输入标题
+    time.sleep(6)
+    text = '真可爱'
+    resourceId = 'com.sup.android.superb:id/a71'
+    driver.find_element(By.ID, resourceId).send_keys(text)
+
+    # 发布
+    time.sleep(6)
+    resourceId = 'com.sup.android.superb:id/bne'
+    driver.find_element(By.ID, resourceId).click()
+
+    time.sleep(6)
+
+    input('确定退出')

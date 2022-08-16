@@ -49,9 +49,8 @@ if __name__ == '__main__':
     driver.find_element(By.ID, resourceId).click()
 
 
-    #点击屏幕
-    time.sleep(6)
 
+    time.sleep(6)
     #文本存入剪贴板
     text='你好啊'
     driver.set_clipboard_text(text)

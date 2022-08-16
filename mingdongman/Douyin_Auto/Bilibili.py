@@ -36,9 +36,9 @@ if __name__ == '__main__':
 
     # 点击视频
     time.sleep(6)
-    # text = '视频'
-    # driver.find_element(AppiumBy.ACCESSIBILITY_ID, text).click()
-    # time.sleep(6)
+    text = '视频'
+    driver.find_element(AppiumBy.ACCESSIBILITY_ID, text).click()
+    time.sleep(6)
 
     # 选择第一个视频
     TouchAction(driver).tap(x=200, y=600).perform()
