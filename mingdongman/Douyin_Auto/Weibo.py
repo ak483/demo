@@ -35,7 +35,7 @@ if __name__ == '__main__':
     resourceId = 'com.sina.weibo:id/titleSave'
     driver.find_element(By.ID, resourceId).click()
 
-    # 点击视频
+    # 点击视频，content-desc元素
     time.sleep(6)
     text = '视频'
     driver.find_element(AppiumBy.ACCESSIBILITY_ID, text).click()

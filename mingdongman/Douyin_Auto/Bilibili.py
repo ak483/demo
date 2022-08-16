@@ -66,6 +66,7 @@ if __name__ == '__main__':
     # find_element_by_android_uiautomator
     driver.find_element('-android uiautomator', 'new UiSelector().text("自定义标签")').click()
 
+
     # 填写标签
     time.sleep(6)
     text = '美好'
