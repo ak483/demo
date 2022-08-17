@@ -1,7 +1,7 @@
 # coding=utf-8
 
-from mingdongman.Platform_Auto.AcFun import Add_AcFun_video
-from mingdongman.Platform_Auto.Banciyuan import Add_Banciyuan_video
+from demo.Platform_Auto.AcFun import Add_AcFun_video
+from demo.Platform_Auto.Banciyuan import Add_Banciyuan_video
 
 
 #AcFun
