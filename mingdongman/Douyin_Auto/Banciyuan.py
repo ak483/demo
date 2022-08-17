@@ -10,6 +10,7 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from appium.webdriver.common.appiumby import AppiumBy
 
+
 # def check_and_delay(ts):
 #     time.sleep(ts)
 
@@ -73,7 +74,17 @@ if __name__ == '__main__':
     time.sleep(6)
     driver.find_element('-android uiautomator', 'new UiSelector().text("请输入标签，多个标签用换行分割")').click()
 
-    # 输入标签
+
+    time.sleep(6)
+    # driver.find_element('-android uiautomator', 'new UiSelector().text("添加标签")').send_keys(text)
+
+    # code = 'new UiSelector().className("android.view.ViewGroup").childSelector(new UiSelector().className("android.widget.TextView"))'
+    #
+    # # code = 'new UiSelector().className("android.widget.TextView")'
+    # ele = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, code)
+    # ele.send_keys(text)
+
+    #输入标签
     time.sleep(6)
     # 文本存入剪贴板
     text = '你好啊'
@@ -81,11 +92,12 @@ if __name__ == '__main__':
 
     # 长按弹出粘贴按钮
     action = TouchAction(driver)
-    action.long_press(x=100, y=300).perform()
+
+    action.long_press(x=80, y=280, duration=2000).release().perform()
     time.sleep(6)
 
     # 选择粘贴
-    TouchAction(driver).tap(x=50, y=655).perform()
+    TouchAction(driver).tap(x=50, y=204).perform()
 
     # 发布
     time.sleep(6)
