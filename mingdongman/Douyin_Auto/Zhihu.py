@@ -55,12 +55,12 @@ if __name__ == '__main__':
     text='你好啊'
     driver.set_clipboard_text(text)
 
-    # 长按弹出粘贴按钮
+    # 长按屏幕
     action = TouchAction(driver)
     action.long_press(x=50,y=850).perform()
     time.sleep(6)
 
-    # 点击粘贴
+    # 选择粘贴
     TouchAction(driver).tap(x=50, y=655).perform()
 
     # 发布

@@ -84,6 +84,9 @@ if __name__ == '__main__':
     action.long_press(x=100, y=300).perform()
     time.sleep(6)
 
+    # 选择粘贴
+    TouchAction(driver).tap(x=50, y=655).perform()
+
     # 发布
     time.sleep(6)
     resourceId = 'com.banciyuan.bcywebview:id/asz'
