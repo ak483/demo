@@ -24,6 +24,10 @@ if __name__ == '__main__':
       'newCommandTimeout': 6000,
       'automationName' : 'UiAutomator2'
     }
+
+
+def Add_Bilibili_video():
+
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     # 点击+按钮
@@ -65,5 +69,7 @@ if __name__ == '__main__':
     driver.find_element(By.ID, resourceId).click()
 
     time.sleep(6)
-    input('确定退出')
+    input('半次元执行完成')
 
+if __name__ == '__main__':
+    pass

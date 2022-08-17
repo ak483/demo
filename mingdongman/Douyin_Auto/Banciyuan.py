@@ -11,23 +11,22 @@ from selenium.webdriver.common.by import By
 from appium.webdriver.common.appiumby import AppiumBy
 
 
-# def check_and_delay(ts):
-#     time.sleep(ts)
+desired_caps = {
+  'platformName': 'Android', # 被测手机是安卓
+  'platformVersion': '11', # 手机安卓版本
+  'deviceName': '009', # 设备名，安卓手机可以随意填写
+  'appPackage': 'com.banciyuan.bcywebview',  # 启动APP Package名称
+  'appActivity': 'com.bcy.biz.stage.main.MainActivity',  # 启动Activity名称
+  'unicodeKeyboard': True, # 使用自带输入法，输入中文时填True
+  'resetKeyboard': True, # 执行完程序恢复原来输入法
+  'noReset': True,       # 不要重置App
+  'skipServerInstallation': True,
+  'newCommandTimeout': 6000,
+  'automationName' : 'UiAutomator2'
+}
 
-if __name__ == '__main__':
-    desired_caps = {
-      'platformName': 'Android', # 被测手机是安卓
-      'platformVersion': '11', # 手机安卓版本
-      'deviceName': '009', # 设备名，安卓手机可以随意填写
-      'appPackage': 'com.banciyuan.bcywebview',  # 启动APP Package名称
-      'appActivity': 'com.bcy.biz.stage.main.MainActivity',  # 启动Activity名称
-      'unicodeKeyboard': True, # 使用自带输入法，输入中文时填True
-      'resetKeyboard': True, # 执行完程序恢复原来输入法
-      'noReset': True,       # 不要重置App
-      'skipServerInstallation': True,
-      'newCommandTimeout': 6000,
-      'automationName' : 'UiAutomator2'
-    }
+
+def Add_Banciyuan_video():
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
     # 点击+号
@@ -74,25 +73,15 @@ if __name__ == '__main__':
     time.sleep(6)
     driver.find_element('-android uiautomator', 'new UiSelector().text("请输入标签，多个标签用换行分割")').click()
 
-
-    time.sleep(6)
-    # driver.find_element('-android uiautomator', 'new UiSelector().text("添加标签")').send_keys(text)
-
-    # code = 'new UiSelector().className("android.view.ViewGroup").childSelector(new UiSelector().className("android.widget.TextView"))'
-    #
-    # # code = 'new UiSelector().className("android.widget.TextView")'
-    # ele = driver.find_element(AppiumBy.ANDROID_UIAUTOMATOR, code)
-    # ele.send_keys(text)
-
     #输入标签
     time.sleep(6)
+
     # 文本存入剪贴板
     text = '你好啊'
     driver.set_clipboard_text(text)
 
     # 长按弹出粘贴按钮
     action = TouchAction(driver)
-
     action.long_press(x=80, y=280, duration=2000).release().perform()
     time.sleep(6)
 
@@ -105,5 +94,7 @@ if __name__ == '__main__':
     driver.find_element(By.ID, resourceId).click()
 
     time.sleep(6)
+    input('半次元执行完成')
 
-    input('确定退出')
+if __name__ == '__main__':
+    pass
