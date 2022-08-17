@@ -28,7 +28,7 @@ desired_caps = {
 }
 
 
-def Xiaohongshu_video():
+def Add_Xiaohongshu_video():
 
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
