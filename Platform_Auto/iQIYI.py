@@ -29,42 +29,48 @@ desired_caps = {
 
 
 def Add_iQIYI_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    # 点击+按钮
-    time.sleep(10)
-    TouchAction(driver).tap(x=1000, y=145).perform()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        input('检查界面情况')
 
-    # 点击添加视频
-    time.sleep(6)
-    driver.find_element('-android uiautomator', 'new UiSelector().text("上传/剪辑")').click()
+        # 点击+按钮
+        TouchAction(driver).tap(x=1000, y=145).perform()
 
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=500, y=500).perform()
+        # 点击添加视频
+        time.sleep(1)
+        driver.find_element('-android uiautomator', 'new UiSelector().text("上传/剪辑")').click()
 
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=850, y=500.perform()
+        time.sleep(1)
 
-    # 去发布
-    time.sleep(6)
-    resourceId = 'com.qiyi.video.feature:id/sv_selected_next'
-    driver.find_element(By.ID, resourceId).click()
+        if i ==0:
+            #选择第一个视频
+            TouchAction(driver).tap(x=500, y=500).perform()
 
-    # 标题（不得少于5个字）
-    time.sleep(6)
-    text = '真可爱'
-    resourceId = 'com.qiyi.video.feature:id/editPublishTitle'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        elif i ==1:
+            # 选择第二个视频
+            TouchAction(driver).tap(x=850, y=500).perform()
 
-    # 发布
-    time.sleep(6)
-    resourceId = 'com.qiyi.video.feature:id/buttonPublishFeed'
-    driver.find_element(By.ID, resourceId).click()
+        # 去发布
+        time.sleep(1)
+        resourceId = 'com.qiyi.video.feature:id/sv_selected_next'
+        driver.find_element(By.ID, resourceId).click()
 
-    time.sleep(6)
+        # 标题（不得少于5个字）
+        time.sleep(1)
+        text = '真可爱'
+        resourceId = 'com.qiyi.video.feature:id/editPublishTitle'
+        driver.find_element(By.ID, resourceId).send_keys(text)
+
+        # 发布
+        time.sleep(1)
+        resourceId = 'com.qiyi.video.feature:id/buttonPublishFeed'
+        driver.find_element(By.ID, resourceId).click()
+
+        time.sleep(1)
 
     input('爱奇艺执行完成')
 
 if __name__ == '__main__':
+    Add_iQIYI_video()
     pass

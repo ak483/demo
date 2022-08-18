@@ -9,8 +9,6 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from appium.webdriver.common.appiumby import AppiumBy
 
-
-
 desired_caps = {
   'platformName': 'Android', # 被测手机是安卓
   'platformVersion': '11', # 手机安卓版本
@@ -27,54 +25,61 @@ desired_caps = {
 
 
 def Add_Haokan_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    # 点击+按钮
-    time.sleep(6)
-    resourceId = 'com.baidu.haokan:id/ds4'
-    driver.find_element(By.ID, resourceId).click()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    # 点击上传视频
-    time.sleep(6)
-    resourceId = 'com.baidu.haokan:id/dk6'
-    driver.find_element(By.ID, resourceId).click()
+        input('检查界面情况')
 
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=200, y=400).perform()
+        # 点击+按钮
+        time.sleep(1)
+        resourceId = 'com.baidu.haokan:id/ds4'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=500, y=400.perform()
+        # 点击上传视频
+        time.sleep(1)
+        resourceId = 'com.baidu.haokan:id/dk6'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.baidu.capture:id/local_file_next_tv'
-    driver.find_element(By.ID, resourceId).click()
+        time.sleep(1)
+        if i ==0:
+            #选择第一个视频
+            TouchAction(driver).tap(x=200, y=400).perform()
 
-    # 打钩确定
-    time.sleep(6)
-    resourceId = 'com.baidu.capture:id/iv_right'
-    driver.find_element(By.ID, resourceId).click()
+        if i == 1:
+             #选择第二个视频
+             TouchAction(driver).tap(x=500, y=400).perform()
 
-    # 再次下一步
-    time.sleep(6)
-    resourceId = 'com.baidu.capture:id/ugc_capture_preview_next'
-    driver.find_element(By.ID, resourceId).click()
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.baidu.capture:id/local_file_next_tv'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 填写标题
-    time.sleep(6)
-    text = '真可爱美好'
-    resourceId = 'com.baidu.haokan:id/e9z'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 打钩确定
+        time.sleep(1)
+        resourceId = 'com.baidu.capture:id/iv_right'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 发布
-    time.sleep(6)
-    resourceId = 'com.baidu.haokan:id/e9i'
-    driver.find_element(By.ID, resourceId).click()
+        # 再次下一步
+        time.sleep(1)
+        resourceId = 'com.baidu.capture:id/ugc_capture_preview_next'
+        driver.find_element(By.ID, resourceId).click()
 
-    time.sleep(6)
+        # 填写标题
+        time.sleep(1)
+        text = '真可爱美好'
+        resourceId = 'com.baidu.haokan:id/e9z'
+        driver.find_element(By.ID, resourceId).send_keys(text)
+
+        # 发布
+        time.sleep(1)
+        resourceId = 'com.baidu.haokan:id/e9i'
+        driver.find_element(By.ID, resourceId).click()
+
+        time.sleep(6)
 
     input('好看视频执行完成')
 
 if __name__ == '__main__':
+    Add_Haokan_video()
     pass

@@ -28,54 +28,56 @@ desired_caps = {
 }
 
 
-def Xiaohongshu_video():
+def Add_Xiaohongshu_video():
 
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
+        input('检查界面情况')
+        #点击+按钮
+        resourceId = 'com.xingin.xhs:id/cdv'
+        driver.find_element(By.ID, resourceId).click()
 
- #点击+按钮
-    time.sleep(10)
-    resourceId = 'com.xingin.xhs:id/cdv'
-    driver.find_element(By.ID, resourceId).click()
+        time.sleep(1)
 
-    # 点击视频
-    # time.sleep(6)
-    # text = '视频'
-    # driver.find_element(AppiumBy.ACCESSIBILITY_ID, text).click()
-    # time.sleep(6)
+        if i==0:
+        # 选择第一个视频
+            TouchAction(driver).tap(x=300, y=450).perform()
 
-    # 选择视频
-    TouchAction(driver).tap(x=300, y=450).perform()
+        elif i==1:
+        #选择第二个视频
+            TouchAction(driver).tap(x=300, y=450).perform()
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.xingin.xhs:id/zo'
-    driver.find_element(By.ID, resourceId).click()
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.xingin.xhs:id/zo'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 再下一步
-    time.sleep(20)
-    resourceId = 'com.xingin.xhs:id/bms'
-    driver.find_element(By.ID, resourceId).click()
+        # 再下一步
+        time.sleep(6)
+        resourceId = 'com.xingin.xhs:id/bms'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 标题
-    time.sleep(6)
-    text = '真可爱\n#美好'
-    resourceId = 'com.xingin.xhs:id/b5f'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 标题
+        time.sleep(1)
+        text = '真可爱\n#美好'
+        resourceId = 'com.xingin.xhs:id/b5f'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-    # 正文
-    time.sleep(6)
-    text = '真可爱\n#美好'
-    resourceId = 'com.xingin.xhs:id/b4_'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 正文
+        time.sleep(1)
+        text = '真可爱\n#美好'
+        resourceId = 'com.xingin.xhs:id/b4_'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-    #发送
-    time.sleep(6)
-    resourceId = 'com.xingin.xhs:id/a7l'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(6)
+        #发送
+        time.sleep(1)
+        resourceId = 'com.xingin.xhs:id/a7l'
+        driver.find_element(By.ID, resourceId).click()
+        time.sleep(6)
 
     input('小红书执行完成')
 
 if __name__ == '__main__':
+    Add_Xiaohongshu_video()
     pass

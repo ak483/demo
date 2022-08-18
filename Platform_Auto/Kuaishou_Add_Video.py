@@ -29,50 +29,58 @@ desired_caps = {
 
 
 def Add_Kuaishou_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-    time.sleep(6)
 
-    #点击屏幕
-    TouchAction(driver).tap(x=282, y=1237).perform()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    #点击+按钮
-    time.sleep(10)
-    resourceId = 'com.smile.gifmaker:id/btn_shoot_white'
-    driver.find_element(By.ID, resourceId).click()
+        input('检查界面情况')
 
-    #点击相册
-    time.sleep(6)
-    resourceId = 'com.smile.gifmaker:id/button_album_frame'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(6)
+        #点击屏幕
+        TouchAction(driver).tap(x=282, y=1237).perform()
 
-    #选择视频
-    TouchAction(driver).tap(x=220, y=420).perform()
+        #点击+按钮
+        time.sleep(1)
+        resourceId = 'com.smile.gifmaker:id/btn_shoot_white'
+        driver.find_element(By.ID, resourceId).click()
+
+        #点击相册
+        time.sleep(1)
+        resourceId = 'com.smile.gifmaker:id/button_album_frame'
+        driver.find_element(By.ID, resourceId).click()
 
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.smile.gifmaker:id/next_step'
-    driver.find_element(By.ID, resourceId).click()
+        time.sleep(1)
+        if i==0:
+            #选择第一个视频
+            TouchAction(driver).tap(x=220, y=420).perform()
+        elif i==1:
+            #选择第二个视频
+            TouchAction(driver).tap(x=500, y=420).perform()
 
-    # 再下一步
-    time.sleep(6)
-    resourceId = 'com.smile.gifmaker:id/next_step_button_text'
-    driver.find_element(By.ID, resourceId).click()
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.smile.gifmaker:id/next_step'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 作品描述
-    time.sleep(6)
-    text = '真可爱\n#美好'
-    resourceId = 'com.smile.gifmaker:id/editor'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 再下一步
+        time.sleep(1)
+        resourceId = 'com.smile.gifmaker:id/next_step_button_text'
+        driver.find_element(By.ID, resourceId).click()
 
-    #发送
-    time.sleep(6)
-    resourceId = 'com.smile.gifmaker:id/publish_button'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(6)
+        # 作品描述
+        time.sleep(1)
+        text = '真可爱\n#美好'
+        resourceId = 'com.smile.gifmaker:id/editor'
+        driver.find_element(By.ID, resourceId).send_keys(text)
+
+        #发送
+        time.sleep(1)
+        resourceId = 'com.smile.gifmaker:id/publish_button'
+        driver.find_element(By.ID, resourceId).click()
+        time.sleep(6)
 
     input('快手执行完成')
 
 if __name__ == '__main__':
+    Add_Kuaishou_video()
     pass

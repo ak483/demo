@@ -31,43 +31,42 @@ desired_caps = {
 
 def Add_Wangyi_video():
 
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        input('检查界面情况')
+         # 点击+按钮
+        resourceId = 'com.netease.newsreader.activity:id/anl'
+        driver.find_element(By.ID, resourceId).click()
 
+        # 作品描述
+        time.sleep(1)
+        text = '真可爱\n#美好'
+        resourceId = 'com.netease.newsreader.activity:id/bel'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-     # 点击+按钮
-    time.sleep(10)
-    resourceId = 'com.netease.newsreader.activity:id/anl'
-    driver.find_element(By.ID, resourceId).click()
+        # 点击+添加视频
+        time.sleep(1)
+        TouchAction(driver).tap(x=150, y=650).perform()
 
-    # 作品描述
-    time.sleep(6)
-    text = '真可爱\n#美好'
-    resourceId = 'com.netease.newsreader.activity:id/bel'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        time.sleep(1)
+        if i==0:
+        # 选择第一个视频
+            TouchAction(driver).tap(x=500, y=250).perform()
+        elif i==1:
+        # 选择第二个视频
+            TouchAction(driver).tap(x=750, y=270).perform()
 
-    # 点击+添加视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=150, y=650).perform()
+        # 继续
+        time.sleep(1)
+        resourceId = 'com.netease.newsreader.activity:id/l8'
+        driver.find_element(By.ID, resourceId).click()
 
-
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=500, y=250).perform()
-
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=750, y=270.perform()
-
-    # 继续
-    time.sleep(6)
-    resourceId = 'com.netease.newsreader.activity:id/l8'
-    driver.find_element(By.ID, resourceId).click()
-
-    # 发布
-    driver.find_element('-android uiautomator', 'new UiSelector().text("发布")').click()
-
-    time.sleep(6)
+        # 发布
+        driver.find_element('-android uiautomator', 'new UiSelector().text("发布")').click()
+        time.sleep(6)
     input('网易执行完成')
 
 if __name__ == '__main__':
+    Add_Wangyi_video()
     pass

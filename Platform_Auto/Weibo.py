@@ -31,46 +31,51 @@ desired_caps = {
 
 def Add_Weibo_video():
 
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    for i in range(2):
 
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    #点击+按钮
-    time.sleep(10)
-    resourceId = 'com.sina.weibo:id/titleSave'
-    driver.find_element(By.ID, resourceId).click()
+        input('检查界面情况')
+        #点击+按钮
+        resourceId = 'com.sina.weibo:id/titleSave'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 点击视频，content-desc元素
-    time.sleep(6)
-    text = '视频'
-    driver.find_element(AppiumBy.ACCESSIBILITY_ID, text).click()
-    time.sleep(6)
+        # 点击视频，content-desc元素
+        time.sleep(1)
+        text = '视频'
+        driver.find_element(AppiumBy.ACCESSIBILITY_ID, text).click()
 
-    # 选择视频
-    TouchAction(driver).tap(x=500, y=250).perform()
+        time.sleep(1)
+        if i==0:
+        # 选择视频
+            TouchAction(driver).tap(x=500, y=250).perform()
+        elif i==1:
+            TouchAction(driver).tap(x=760, y=250).perform()
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.sina.weibo:id/nextText'
-    driver.find_element(By.ID, resourceId).click()
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.sina.weibo:id/nextText'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 再下一步
-    time.sleep(6)
-    resourceId = 'com.sina.weibo:id/nextText'
-    driver.find_element(By.ID, resourceId).click()
+        # 再下一步
+        time.sleep(1)
+        resourceId = 'com.sina.weibo:id/nextText'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 作品描述
-    time.sleep(6)
-    text = '真可爱\n#美好'
-    resourceId = 'com.sina.weibo:id/edit_view'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 作品描述
+        time.sleep(1)
+        text = '真可爱\n#美好'
+        resourceId = 'com.sina.weibo:id/edit_view'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-    #发送
-    time.sleep(6)
-    resourceId = 'com.sina.weibo:id/titleSave'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(6)
+        #发送
+        time.sleep(1)
+        resourceId = 'com.sina.weibo:id/titleSave'
+        driver.find_element(By.ID, resourceId).click()
+        time.sleep(6)
 
     input('微博执行完成')
 
 if __name__ == '__main__':
+    Add_Weibo_video()
     pass

@@ -9,8 +9,6 @@ from appium.webdriver.common.touch_action import TouchAction
 from selenium.webdriver.common.by import By
 from appium.webdriver.common.appiumby import AppiumBy
 
-
-
 desired_caps = {
   'platformName': 'Android', # 被测手机是安卓
   'platformVersion': '11', # 手机安卓版本
@@ -25,55 +23,57 @@ desired_caps = {
   'automationName' : 'UiAutomator2'
 }
 
-
 def Add_Zhihu_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    # 点击+按钮
-    time.sleep(10)
-    TouchAction(driver).tap(x=540, y=2220).perform()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    # 点击添加视频
-    time.sleep(6)
-    resourceId = 'com.zhihu.android:id/new_editor_drawee_iv'
-    driver.find_element(By.ID, resourceId).click()
+        input('检查界面情况')
+        # 点击+按钮
+        TouchAction(driver).tap(x=540, y=2220).perform()
 
+        # 点击添加视频
+        time.sleep(1)
+        resourceId = 'com.zhihu.android:id/new_editor_drawee_iv'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=600, y=320).perform()
+        time.sleep(1)
 
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=1000, y=320.perform()
+        if i==0:
+        # 选择第一个视频
+            TouchAction(driver).tap(x=600, y=320).perform()
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.zhihu.android:id/select_preview_next'
-    driver.find_element(By.ID, resourceId).click()
+        elif i==1:
+        # 选择第二个视频
+            TouchAction(driver).tap(x=1000, y=320).perform()
 
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.zhihu.android:id/select_preview_next'
+        driver.find_element(By.ID, resourceId).click()
 
+        time.sleep(1)
+        #文本存入剪贴板
+        text='你好啊'
+        driver.set_clipboard_text(text)
 
-    time.sleep(6)
-    #文本存入剪贴板
-    text='你好啊'
-    driver.set_clipboard_text(text)
+        # 长按屏幕
+        action = TouchAction(driver)
+        action.long_press(x=50,y=850).perform()
+        time.sleep(1)
 
-    # 长按屏幕
-    action = TouchAction(driver)
-    action.long_press(x=50,y=850).perform()
-    time.sleep(6)
+        # 选择粘贴
+        TouchAction(driver).tap(x=50, y=655).perform()
 
-    # 选择粘贴
-    TouchAction(driver).tap(x=50, y=655).perform()
+        # 发布
+        time.sleep(1)
+        resourceId = 'com.zhihu.android:id/publish'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 发布
-    time.sleep(6)
-    resourceId = 'com.zhihu.android:id/publish'
-    driver.find_element(By.ID, resourceId).click()
-
-    time.sleep(6)
+        time.sleep(6)
 
     input('知乎执行完成')
 
 if __name__ == '__main__':
+    Add_Zhihu_video()
     pass

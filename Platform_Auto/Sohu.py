@@ -27,44 +27,48 @@ desired_caps = {
 
 
 def Add_Sohu_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
-    # 点击+按钮
-    time.sleep(10)
-    resourceId = 'com.sohu.sohuvideo:id/ib_publish'
-    driver.find_element(By.ID, resourceId).click()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        input('检查界面情况')
 
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=150, y=800).perform()
+        # 点击+按钮
+        resourceId = 'com.sohu.sohuvideo:id/ib_publish'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=550, y=400.perform()
+        time.sleep(1)
+        if i==0:
+        # 选择第一个视频
+            TouchAction(driver).tap(x=150, y=800).perform()
+        elif i==1:
+        # 选择第二个视频
+            TouchAction(driver).tap(x=550, y=400).perform()
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.sohu.sohuvideo:id/tv_next'
-    driver.find_element(By.ID, resourceId).click()
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.sohu.sohuvideo:id/tv_next'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 再次下一步
-    time.sleep(6)
-    TouchAction(driver).tap(x=900, y=1900).perform()
+        # 再次下一步
+        time.sleep(1)
+        TouchAction(driver).tap(x=900, y=1900).perform()
 
-    #填写标题
-    time.sleep(6)
-    text = '真可爱美好'
-    resourceId = 'com.sohu.sohuvideo:id/et_title'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        #填写标题
+        time.sleep(1)
+        text = '真可爱美好'
+        resourceId = 'com.sohu.sohuvideo:id/et_title'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-    # 发布
-    time.sleep(6)
-    resourceId = 'com.sohu.sohuvideo:id/view_upload_text'
-    driver.find_element(By.ID, resourceId).click()
+        # 发布
+        time.sleep(1)
+        resourceId = 'com.sohu.sohuvideo:id/view_upload_text'
+        driver.find_element(By.ID, resourceId).click()
 
-    time.sleep(6)
+        time.sleep(6)
 
     input('搜狐执行完成')
 
 if __name__ == '__main__':
+    Add_Sohu_video()
     pass
 

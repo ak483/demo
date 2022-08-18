@@ -30,44 +30,49 @@ desired_caps = {
 
 def Add_Pipixia_video():
 
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+    for i in range(2):
 
-    # 点击+按钮
-    time.sleep(10)
-    resourceId = 'com.sup.android.superb:id/bck'
-    driver.find_element(By.ID, resourceId).click()
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        input('检查界面情况')
 
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=310, y=630).perform()
+        # 点击+按钮
+        resourceId = 'com.sup.android.superb:id/bck'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=680, y=630).perform()
+        time.sleep(1)
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.sup.android.superb:id/p6'
-    driver.find_element(By.ID, resourceId).click()
+        if i==0:
+        # 选择第一个视频
+            TouchAction(driver).tap(x=310, y=630).perform()
+        elif i==1:
+        # 选择第二个视频
+            TouchAction(driver).tap(x=680, y=630).perform()
 
-    # 完成
-    time.sleep(6)
-    resourceId = 'com.sup.android.module.mp:id/btn_premiere_finish'
-    driver.find_element(By.ID, resourceId).click()
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.sup.android.superb:id/p6'
+        driver.find_element(By.ID, resourceId).click()
 
-    #输入标题
-    time.sleep(6)
-    text = '真可爱'
-    resourceId = 'com.sup.android.superb:id/a71'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 完成
+        time.sleep(1)
+        resourceId = 'com.sup.android.module.mp:id/btn_premiere_finish'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 发布
-    time.sleep(6)
-    resourceId = 'com.sup.android.superb:id/bne'
-    driver.find_element(By.ID, resourceId).click()
+        #输入标题
+        time.sleep(1)
+        text = '真可爱'
+        resourceId = 'com.sup.android.superb:id/a71'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-    time.sleep(6)
+        # 发布
+        time.sleep(1)
+        resourceId = 'com.sup.android.superb:id/bne'
+        driver.find_element(By.ID, resourceId).click()
+
+        time.sleep(6)
 
     input('皮皮虾执行完成')
 
 if __name__ == '__main__':
+    Add_Pipixia_video()
     pass

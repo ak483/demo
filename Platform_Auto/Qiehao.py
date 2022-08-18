@@ -28,61 +28,65 @@ desired_caps = {
 }
 
 
-
 def Add_Qiehao_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
 
-    # 点击+按钮
-    time.sleep(10)
-    resourceId = 'com.tencent.omapp:id/publish_dialog_close'
-    driver.find_element(By.ID, resourceId).click()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+        input('检查界面情况')
 
-    # 点击添加视频
-    time.sleep(6)
-    resourceId = 'com.tencent.omapp:id/publish_dialog_video_ll'
-    driver.find_element(By.ID, resourceId).click()
+        # 点击+按钮
+        resourceId = 'com.tencent.omapp:id/publish_dialog_close'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择第一个视频
-    time.sleep(6)
-    TouchAction(driver).tap(x=150, y=350).perform()
+        # 点击添加视频
+        time.sleep(1)
+        resourceId = 'com.tencent.omapp:id/publish_dialog_video_ll'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择第二个视频
-    # TouchAction(driver).tap(x=500, y=350.perform()
+        time.sleep(1)
 
-    # 完成
-    time.sleep(6)
-    resourceId = 'com.tencent.omapp:id/preview_video_finish'
-    driver.find_element(By.ID, resourceId).click()
+        if i==0:
+        # 选择第一个视频
+            TouchAction(driver).tap(x=150, y=350).perform()
+        elif i==1:
+        # 选择第二个视频
+            TouchAction(driver).tap(x=500, y=350).perform()
 
-    # 标题（不得少于5个字）
-    time.sleep(6)
-    text = '真可爱'
-    resourceId = 'com.tencent.omapp:id/video_play_title_edit_text'
-    driver.find_element(By.ID, resourceId).send_keys(text)
+        # 完成
+        time.sleep(1)
+        resourceId = 'com.tencent.omapp:id/preview_video_finish'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 选择分类
-    time.sleep(6)
-    resourceId = 'com.tencent.omapp:id/video_play_catalog_text_hint'
-    driver.find_element(By.ID, resourceId).click()
+        # 标题（不得少于5个字）
+        time.sleep(1)
+        text = '真可爱'
+        resourceId = 'com.tencent.omapp:id/video_play_title_edit_text'
+        driver.find_element(By.ID, resourceId).send_keys(text)
 
-    # 选择分支
-    time.sleep(6)
-    driver.find_element('-android uiautomator', 'new UiSelector().text("动漫")').click()
+        # 选择分类
+        time.sleep(1)
+        resourceId = 'com.tencent.omapp:id/video_play_catalog_text_hint'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 再选择分支
-    time.sleep(6)
-    driver.find_element('-android uiautomator', 'new UiSelector().text("宅文化")').click()
+        # 选择分支
+        time.sleep(1)
+        driver.find_element('-android uiautomator', 'new UiSelector().text("动漫")').click()
 
-    # 发布
-    time.sleep(6)
-    resourceId = 'com.tencent.omapp:id/video_upload_publish_btn'
-    driver.find_element(By.ID, resourceId).click()
+        # 再选择分支
+        time.sleep(1)
+        driver.find_element('-android uiautomator', 'new UiSelector().text("宅文化")').click()
 
-    time.sleep(6)
+        # 发布
+        time.sleep(1)
+        resourceId = 'com.tencent.omapp:id/video_upload_publish_btn'
+        driver.find_element(By.ID, resourceId).click()
+
+        time.sleep(6)
 
     input('企鹅号执行完成')
 
 if __name__ == '__main__':
+    Add_Qiehao_video()
     pass
 

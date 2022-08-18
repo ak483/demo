@@ -31,76 +31,79 @@ desired_caps = {
 
 
 def Add_Douyin_video():
-    driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-    time.sleep(6)
 
-    # TouchAction(driver).tap(x=282, y=1237).perform()
-    #
-    #点击+按钮
-    time.sleep(10)
-    resourceId = 'com.ss.android.ugc.aweme:id/pw2'
-    driver.find_element(By.ID, resourceId).click()
-
-  #  TouchAction(driver).tap(x=960, y=2250).perform()
-
-    #点击相册
-    time.sleep(6)
-    resourceId = 'com.ss.android.ugc.aweme:id/bh2'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(6)
-
-    TouchAction(driver).tap(x=200, y=500).perform()
-
-    #下一步
-    time.sleep(6)
-    resourceId = 'com.ss.android.ugc.aweme:id/k_q'
-    driver.find_element(By.ID, resourceId).click()
+    for i in range(2):
+        driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 
 
+        input('检查页面情况')
 
-    #作品描述
-    time.sleep(6)
-    text = '真可爱\n#美好'
-    resourceId = 'com.ss.android.ugc.aweme:id/ept'
-    driver.find_element(By.ID,resourceId).send_keys(text)
+        # TouchAction(driver).tap(x=282, y=1237).perform()
+        #点击+按钮
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/pw2'
+        driver.find_element(By.ID, resourceId).click()
 
-    # 返回编辑
-    time.sleep(6)
-    resourceId = 'com.ss.android.ugc.aweme:id/a8'
-    driver.find_element(By.ID, resourceId).click()
+        #TouchAction(driver).tap(x=960, y=2250).perform()
 
-    # 下一步
-    time.sleep(6)
-    resourceId = 'com.ss.android.ugc.aweme:id/k_q'
-    driver.find_element(By.ID, resourceId).click()
+        #点击相册
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/bh2'
+        driver.find_element(By.ID, resourceId).click()
 
-    #发布
-    time.sleep(6)
-    resourceId = 'com.ss.android.ugc.aweme:id/mzo'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(6)
+        time.sleep(1)
+        if i == 0:
+        #选择第一个视频
+            TouchAction(driver).tap(x=200, y=500).perform()
+        elif i ==1:
+            TouchAction(driver).tap(x=600, y=500).perform()
 
-#点击我
-    resourceId = 'com.ss.android.ugc.aweme:id/pxb'
-    driver.find_element(By.ID, resourceId).click()
-    time.sleep(10)
+        #下一步
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/k_q'
+        driver.find_element(By.ID, resourceId).click()
 
-    resourceId = 'com.ss.android.ugc.aweme:id/s5-'
-    fans = driver.find_element(By.ID, resourceId).text
-    print('粉丝为：')
-    print(fans)
+        #作品描述
+        time.sleep(1)
+        text = '真可爱\n#美好'
+        resourceId = 'com.ss.android.ugc.aweme:id/ept'
+        driver.find_element(By.ID,resourceId).send_keys(text)
 
-    #播放量
-    resourceId = 'com.ss.android.ugc.aweme:id/r45'
-    play = driver.find_element(By.ID, resourceId).text
-    print('播放量：',play)
+        # 返回编辑
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/a8'
+        driver.find_element(By.ID, resourceId).click()
 
+        # 下一步
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/k_q'
+        driver.find_element(By.ID, resourceId).click()
 
-    #driver.quit()
+        #发布
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/mzo'
+        driver.find_element(By.ID, resourceId).click()
 
+        time.sleep(1)
+        #点击我
+        resourceId = 'com.ss.android.ugc.aweme:id/pxb'
+        driver.find_element(By.ID, resourceId).click()
+
+        time.sleep(1)
+        resourceId = 'com.ss.android.ugc.aweme:id/s5-'
+        fans = driver.find_element(By.ID, resourceId).text
+        print('粉丝为：')
+        print(fans)
+
+        #播放量
+        resourceId = 'com.ss.android.ugc.aweme:id/r45'
+        play = driver.find_element(By.ID, resourceId).text
+        print('播放量：',play)
 
     input('抖音执行完成')
 
 
 if __name__ == '__main__':
+
+    Add_Douyin_video()
     pass
