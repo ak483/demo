@@ -35,7 +35,7 @@ def Get_Data(mod: str) -> list:
     # 查询使用该核心内容的短标题
     for i in mainExcelData:
         myCursor.execute(
-            f"select articleid from article_platform where title='{i}'ANd platform = '{'名动漫小站'}'"
+            f"select articleid from article_platform where pictureclassification='{i}'ANd platform = '{'名动漫小站'}'"
         )
 
 

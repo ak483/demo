@@ -549,6 +549,40 @@ class ArticleClassAPI(PublicClass):
 
         print(responseJson)
 
+    def Query_QuestionAndAnswer(
+            self,questionId:int, category: str,  status: int, auditStatus: int,inquireIndex:int
+    ):
+        """
+        1、查询问答
+
+        :param questionId: 文章ID
+        :param category: 分类名称
+        :param auditStatus: 审核状态：通过 -> 1 or 待审核 -> 0 or 不通过 -> 2
+        :param status: 显示状态：显示 -> 1 or 不显示 -> 0
+        :param inquireIndex: 查询个数
+        :return:
+        """
+
+        self.__init__()
+        # 文章ID
+        if not questionId is None:
+            self.params['questionId'] = int(questionId)
+        # 分类名称
+        if category != '':
+            self.params['category'] = str(category)
+        # 审核状态 -> 0：待审核 or 1：通过 or 2：不通过
+        if not auditStatus is None:
+            self.params['auditStatus'] = int(auditStatus)
+        # 显示状态 -> 1：显示 or 0：不显示
+        if not status is None:
+            self.params['status'] = int(status)
+        # 查询个数
+        if not inquireIndex is None:
+            self.params['inquireIndex'] = int(inquireIndex)
+
+        self.Params()
+
+        return self.Format_Data(response=requests.get(self.requestsUrl + '/interface-news/query', params=self.params), function='Query_Article')
 
     def Update_Article(
             self, articleIdInt: int, articleTitle='', shortTitle='', classify='', readingVolumeInt=0,
