@@ -32,10 +32,10 @@ def Selenium_Login():
     browser.maximize_window()
 
     # browser.get('https://creator.douyin.com/creator-micro/home')
-    # browser.get('https://cp.kuaishou.com/profile')
+    browser.get('https://cp.kuaishou.com/profile')
     # browser.get('https://member.bilibili.com/platform/home')
     # browser.get('https://creator.xiaohongshu.com/login')
-    browser.get('https://channels.weixin.qq.com/platform')
+    # browser.get('https://channels.weixin.qq.com/platform')
 
     input('知乎登录：')
 

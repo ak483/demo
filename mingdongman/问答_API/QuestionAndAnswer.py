@@ -22,10 +22,10 @@ def Get_Data(mod: str) -> list:
     # 读取模板
     mainExcelDict = pd.read_excel(
         FILE_PATH_DICT['问答'], sheet_name=[
-            '问答1'
+            '问答2'
         ]
     )
-    mainExcelData = mainExcelDict['问答1']
+    mainExcelData = mainExcelDict['问答2']
 
     # 筛选
     mainExcelData = mainExcelData[(mainExcelData['发布状态'] != '已发布')]
