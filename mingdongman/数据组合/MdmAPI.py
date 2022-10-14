@@ -721,6 +721,79 @@ class ArticleClassAPI(PublicClass):
         else:
             return self.Format_Data(response=requests.get(self.requestsUrl + '/interface-news/query', params=self.params), function='Query_Article')
 
+class PlatformDataAPI(PublicClass):
+     """
+     1、账号数据
+     2、短视频数据
+     """
+#添加账户数据
+     def Add_Count_Data(
+             self, statisticsDate: str, account: str, platform: str, releaseVolume: int, playVolume: int,
+             likes: int, commentVolume: int, forwardVolume: '', attentionVolume: '', attentionVolumeTotal: int,
+     ):
+
+         self.__init__()
+         self.params['statisticsDate'] = str(statisticsDate)# 数据日期
+         self.params['account'] = str(account)# 账号
+         self.params['platform'] = str(platform)# 所属平台
+         self.params['releaseVolume'] = ''# 发布量
+         self.params['playVolume'] = int(playVolume)# 播放量
+         self.params['likes'] = int(likes)# 点赞量
+         self.params['commentVolume'] = int(commentVolume)# 评论量
+         self.params['forwardVolume'] = forwardVolume# 转发量
+         self.params['attentionVolume'] = int(attentionVolume)# 关注量
+         self.params['attentionVolumeTotal'] = attentionVolumeTotal# 累计关注量
+
+         self.Params()
+         response = requests.post(self.requestsUrl + '/api/short-video/account-statistics', data=self.params)
+         responseJson = json.loads(response.text)
+         return responseJson
+
+     def Add_Video_Data(
+             self, statisticsDate: str, title: str, account: str, platform: str, publishDate: str, playVolume: int,
+             completionRate: '', averagePlayTime: None, likes: int, commentVolume: int, forwardVolume: '', fansVolume: ''
+     ):
+         """
+                statisticsDate = mainExcelData['数据日期'].to_list()
+                title = mainExcelData['视频标题'].to_list()
+                account = mainExcelData['所属账号'].to_list()
+                platform = mainExcelData['所属平台'].to_list()
+                publishDate = mainExcelData['发布日期'].to_list()
+                playVolume = mainExcelData['播放量（总）'].to_list()
+                completionRate = mainExcelData['完播率'].to_list()
+                averagePlayTime = mainExcelData['平均播放时长(s)'].to_list()
+                likes = mainExcelData['点赞量（总）'].to_list()
+                commentVolume = mainExcelData['评论量（总）'].to_list()
+                forwardVolume = mainExcelData['转发量（总）'].to_list()
+                fansVolume = mainExcelData['视频带粉数（总）'].to_list()
+         """
+
+         self.__init__()
+         self.params['statisticsDate'] = str(statisticsDate)# 数据日期
+         self.params['videoTitle'] = str(title)  # 视频标题
+         self.params['account'] = str(account)# 所属账号
+         self.params['platform'] = str(platform)# 所属平台
+         self.params['publishDate'] = str(publishDate)# 发布日期
+         self.params['playVolume'] = int(playVolume)# 播放量
+         self.params['completionRate'] = completionRate  # 完播率
+         self.params['averagePlayTime'] = averagePlayTime  # 平均播放时长
+         self.params['likes'] = int(likes)# 点赞量
+         self.params['commentVolume'] = int(commentVolume)# 评论量
+         self.params['forwardVolume'] = forwardVolume# 转发量
+         self.params['fansVolume'] = fansVolume  # 转发量
+
+
+         self.Params()
+
+         response = requests.post(self.requestsUrl + '/api/short-video/title-statistics', data=self.params)
+         print(response)
+         responseJson = json.loads(response.text)
+         print(responseJson)
+
+         return responseJson
+
+
+
 
 class SectionClassAPI(PublicClass):
     """
@@ -1216,12 +1289,12 @@ if __name__ == '__main__':
     # a = IllustrationWorkClassAPI()
     # b = a.Query(articleIdInt=1)
     # print(b)
-    print('a')
+    # print('a')
     # 文章
-    a = ArticleClassAPI()
+    # a = ArticleClassAPI()
     # b = a.Query_Article(articleIdInt=26415, newsHuabshiBool=True, classify='素材参考', inquireIndex=10, arcrankInt=1)
-    b = a.Update_Article(articleIdInt=26444, newsHuabshiBool=True, arcrankInt=1,readingVolumeInt=22)
-    print(b)
+    # b = a.Update_Article(articleIdInt=26444, newsHuabshiBool=True, arcrankInt=1,readingVolumeInt=22)
+    # print(b)
 
     # 教程
     # a = SectionClassAPI()

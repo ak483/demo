@@ -59,6 +59,7 @@ def getData(p):
                         content[c] = re.sub('\r\n', '', content[c])
                         content[c] = re.sub('\n', '', content[c])
                         content[c] = re.sub('\t', '', content[c])
+                    #迭代元素，保留长度大于1的元素
                     content = [x for x in content if len(x) > 1]
 
                 content = content[1:-1]

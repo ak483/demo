@@ -11,17 +11,17 @@ sys.path.append(r'D:\untitled1')
 from My_code.Toolbox.Selenium import seleniumClass
 All_datalist = []
 
-savepath = r"D:\untitled1\demo\mingdongman\短视频Excel\220926短视频账号9.xlsx"
-day='2022/09/05'
+savepath = r"D:\untitled1\demo\mingdongman\短视频Excel\短视频账号6.xlsx"
+day='2022/09/27'
 FILE_PATH_DICT = {
 
     # '浏览器个人配置': r'G:\Selenium_UserData\Mdm\one',#实验账号
     # '浏览器个人配置': r'G:\Selenium_UserData\ZhiHu\one',#账号一
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Artstation\one',#账号二
-    '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Pixiv\one',#账号三
+    # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Pixiv\one',#账号三
     # '浏览器个人配置': r'G:\Selenium_UserData\BaiDu',#账号四
     # '浏览器个人配置': r'G:\Selenium_UserData\Bcy\one',#账号五
-    # '浏览器个人配置': r'G:\Selenium_UserData\GuangWen',#账号六
+    '浏览器个人配置': r'G:\Selenium_UserData\GuangWen',#账号六
     # '浏览器个人配置': r'G:\Selenium_UserData\MooYoo',#账号七
     # '浏览器个人配置': r'G:\Selenium_UserData\SaiGao\one',#账号八
     # '浏览器个人配置': r'G:\Selenium_UserData\Tao_Bao',#账号九
@@ -54,8 +54,8 @@ def Selenium_Login():
     xiaohongshu()
     switch_(FILE_PATH_DICT['视频号url'])
     shipinhao()
-    switch_(FILE_PATH_DICT['b站url'])
-    bilibili()
+    # switch_(FILE_PATH_DICT['b站url'])
+    # bilibili()
 
     # print(All_datalist)
     browser.quit()
@@ -68,7 +68,7 @@ def Selenium_Login():
     for i in range(0, 16):
         sheet.write(0, i, col[i])  # 列名
     for i in range(0, len(All_datalist)):
-        print("第%d条" % (i + 1))
+        # print("第%d条" % (i + 1))
         data = All_datalist[i]
         for j in range(0, len(data)):
             sheet.write(i + 1, j, data[j])
@@ -92,7 +92,6 @@ def switch_(url):
 
 def douyin():
 
-    datalist = []
     browser.get('https://creator.douyin.com/creator-micro/home')
     browser.maximize_window()
 
@@ -113,7 +112,7 @@ def douyin():
     title = browser.find_elements(By.XPATH, '//div[@class="title-text--37-P9 first-text--2S8h2"]')
     play = browser.find_elements(By.XPATH, '//tr[@class="semi-table-row"]/td[3]//div[@class="number-text--1NhF0"]')
     finish_play = browser.find_elements(By.XPATH, '//tr[@class="semi-table-row"]/td[9]//div[@class="number-text--1NhF0"]')
-    ave_time = '无法获取'
+    ave_time = ''
     approve = browser.find_elements(By.XPATH, '//tr[@class="semi-table-row"]/td[4]//div[@class="number-text--1NhF0"]')
     # approve_rate = '无法获取'
     comment = browser.find_elements(By.XPATH, '//tr[@class="semi-table-row"]/td[6]//div[@class="number-text--1NhF0"]')
@@ -121,8 +120,8 @@ def douyin():
     share = browser.find_elements(By.XPATH, '//tr[@class="semi-table-row"]/td[5]//div[@class="number-text--1NhF0"]')
     # share_rate = "无法获取"
     Fans_raise = browser.find_elements(By.XPATH, '//tr[@class="semi-table-row"]/td[8]//div[@class="number-text--1NhF0"]')
-    day_list=[]
-    for i in range(len(title)-1):
+
+    for i in range(len(title)):
         datalist = []
         datalist.append(day)
         datalist.append(title[i].text)
@@ -135,32 +134,31 @@ def douyin():
         douyin_public_time = re.sub('月', '/', douyin_public_time)
         douyin_public_time = re.sub('日.*$', '', douyin_public_time)
         datalist.append(douyin_public_time)
-        #判断发布量
-        if douyin_public_time==day:
-            day_list.append(douyin_public_time)
 
+        #发布天数
         datalist.append('')
+
+        #播放数据
         j = play[i].text
         if "w" in j:
             j = re.sub('w','',j)
-            print(j)
             j = float(j)*10000
 
-        datalist.append(j)
+        datalist.append(int(j))
         datalist.append(finish_play[i].text)
         datalist.append(ave_time)
-        datalist.append(approve[i].text)
+        datalist.append(int(approve[i].text))
         datalist.append(int(approve[i].text)/int(j))#点赞率
-        datalist.append(comment[i].text)
+        datalist.append(int(comment[i].text))
         datalist.append(int(comment[i].text)/int(j))
-        datalist.append(share[i].text)
+        datalist.append(int(share[i].text))
         datalist.append(int(share[i].text)/int(j))
-        datalist.append(Fans_raise[i].text)
+        datalist.append(int(Fans_raise[i].text))
         All_datalist.append(datalist)
-    print(len(day_list))
+
 
 def kuaishou():
-    datalist = []
+
     # browser.get('https://cp.kuaishou.com/profile')
     # browser.maximize_window()
     while True:
@@ -183,7 +181,7 @@ def kuaishou():
     title = browser.find_elements(By.XPATH, '//div[@class="video-item__info__detail__title__content"]')
     play = browser.find_elements(By.XPATH, '//div[@class="video-item__data"]/div[1]/div[2]')
     finish_play = browser.find_elements(By.XPATH, '//div[@class="video-item__data"]/div[2]/div[2]')
-    ave_time = '无法获取'
+    ave_time = ''
     approve = browser.find_elements(By.XPATH, '//div[@class="video-item__data"]/div[5]/div[2]')
     # approve_rate = int(approve)/int(play)
     comment = browser.find_elements(By.XPATH, '//div[@class="video-item__data"]/div[4]/div[2]')
@@ -191,11 +189,11 @@ def kuaishou():
     share = browser.find_elements(By.XPATH, '//div[@class="video-item__data"]/div[6]/div[2]')
     # share_rate = int(share)/int(play)
     Fans_raise = browser.find_elements(By.XPATH, '//div[@class="video-item__data"]/div[3]/div[2]')
-    day_list = []
+
     for i in range(len(title)):
         datalist = []
         datalist.append(day)
-        datalist.append(title[i].text)
+        datalist.append(re.sub(' ','',title[i].text))
         datalist.append(name)
         datalist.append(platform)
 
@@ -205,11 +203,8 @@ def kuaishou():
         kuaishou_public_time = re.sub('-', '/', kuaishou_public_time)
         kuaishou_public_time = re.sub(' .*$', '', kuaishou_public_time)
 
-        # 判断发布量
-        if kuaishou_public_time == day:
-            day_list.append(kuaishou_public_time)
-
         datalist.append(kuaishou_public_time)
+        #发布天数
         datalist.append('')
         j = play[i].text
         if "万" in j:
@@ -217,7 +212,7 @@ def kuaishou():
             j = int(float(j) * 10000)
         j = re.sub(',', '', str(j))
 
-        datalist.append(j)
+        datalist.append(int(j))
         datalist.append(finish_play[i].text)
         datalist.append(ave_time)
         a = approve[i].text
@@ -226,7 +221,7 @@ def kuaishou():
             a = int((float(a),) * 10000)
         a = re.sub(',', '', str(a))
 
-        datalist.append(a)
+        datalist.append(int(a))
         datalist.append(int(a) / int(j))  # 点赞率
         b = (comment[i].text)
         if "万" in b:
@@ -234,7 +229,7 @@ def kuaishou():
             b = int(float(b) * 10000)
         b = re.sub(',', '', (b))
 
-        datalist.append(b)
+        datalist.append(int(b))
         datalist.append(int(b) / int(j))
         c = (share[i].text)
         if "万" in c:
@@ -242,20 +237,20 @@ def kuaishou():
             c = int(float(c) * 10000)
         c = re.sub(',', '', str(c))
 
-        datalist.append(c)
+        datalist.append(int(c))
         datalist.append(int(c) / int(j))
         d = Fans_raise[i].text
         if "万" in d:
             d = re.sub('万', '', d)
             d = int(float(d) * 10000)
         d = re.sub(',', '', str(d))
-        datalist.append(d)
+        datalist.append(int(d))
 
         All_datalist.append(datalist)
-    print(len(day_list))
+
 
 def bilibili():
-    datalist = []
+
     # browser.get('https://member.bilibili.com/platform/home')
     # browser.maximize_window()
     while True:
@@ -265,7 +260,6 @@ def bilibili():
             break
         except Exception:
             continue
-
 
     platform = "b站"
     browser.find_element(By.XPATH, '// a[contains(text(), "电磁力")]').click()
@@ -280,16 +274,16 @@ def bilibili():
     Publish_time = browser.find_elements(By.XPATH, '//div[@class="pubdate is-success"]/span')
     title = browser.find_elements(By.XPATH, '//div[@class="meta-title"]/a')
     play = browser.find_elements(By.XPATH, '//div[@class="meta-footer clearfix"]/div[1]//span')
-    finish_play = '无法获取'
-    ave_time = '无法获取'
+    finish_play = ''
+    ave_time = ''
     approve = browser.find_elements(By.XPATH, '//div[@class="meta-footer clearfix"]/div[6]//span')
     # approve_rate = int(approve) / int(play)
     comment = browser.find_elements(By.XPATH, '//div[@class="meta-footer clearfix"]/div[3]//span')
     # comment_rate = int(comment) / int(play)
     share = browser.find_elements(By.XPATH, '//div[@class="meta-footer clearfix"]/div[7]//span')
     # share_rate = int(share) / int(play)
-    Fans_raise = '无法获取'
-    day_list = []
+    Fans_raise = ''
+
     for i in range(len(title)):
         datalist = []
         datalist.append(day)
@@ -302,36 +296,30 @@ def bilibili():
         bilibili_public_time = re.sub('-', '/', bilibili_public_time)
         bilibili_public_time = re.sub(' .*$', '', bilibili_public_time)
         bilibili_public_time = '20'+ bilibili_public_time
-        # 判断发布量
-        if bilibili_public_time == day:
-            day_list.append(bilibili_public_time)
 
         datalist.append(bilibili_public_time)
         datalist.append('')
         j = play[i].text
         if "w" in j:
             j = re.sub('w', '', j)
-            print(j)
+
             j = float(j) * 10000
 
-        datalist.append(j)
+        datalist.append(int(j))
         datalist.append(finish_play)
         datalist.append(ave_time)
-        datalist.append(approve[i].text)
+        datalist.append(int(approve[i].text))
         datalist.append(int(approve[i].text) / int(j))  # 点赞率
-        datalist.append(comment[i].text)
+        datalist.append(int(comment[i].text))
         datalist.append(int(comment[i].text) / int(j))
-        datalist.append(share[i].text)
+        datalist.append(int(share[i].text))
         datalist.append(int(share[i].text) / int(j))
         datalist.append(Fans_raise)
         All_datalist.append(datalist)
 
-    print(len(day_list))
-
 def xiaohongshu():
 
-    datalist = []
-#抓取的是近7日的
+    #抓取的是近7日的
     # browser.get('https://creator.xiaohongshu.com/login')
     # browser.maximize_window()
     while True:
@@ -357,7 +345,7 @@ def xiaohongshu():
     Publish_time = browser.find_elements(By.XPATH, '//span[@class="publish-time"]')
     title = browser.find_elements(By.XPATH, '//span[@class="title"]')
     play = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[1]/li[1]/b')
-    finish_play = '无法获取'
+    finish_play = ''
     ave_time = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[1]/li[2]/b')
     approve = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[1]/li[3]/b')
     # approve_rate = int(approve) / int(play)
@@ -366,7 +354,6 @@ def xiaohongshu():
     share = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[2]/li[3]/b')
     # share_rate = int(share) / int(play)
     Fans_raise = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[2]/li[4]/b')
-    day_list = []
 
     for i in range(len(title)):
         datalist = []
@@ -377,37 +364,33 @@ def xiaohongshu():
         xiaohongshu_public_time = Publish_time[i].text
         xiaohongshu_public_time = re.sub('发布于 ', '', xiaohongshu_public_time)
         xiaohongshu_public_time = re.sub('-', '/', xiaohongshu_public_time)
-        # 判断发布量
-        if xiaohongshu_public_time == day:
-            day_list.append(xiaohongshu_public_time)
+
         datalist.append(xiaohongshu_public_time)
         datalist.append('')
         j = play[i].text
         if "w" in j:
             j = re.sub('w', '', j)
-            print(j)
-            j = float(j) * 10000
 
-        datalist.append(j)#播放量
+            j = float(j) * 10000
+        datalist.append(int(j))#播放量
         datalist.append(finish_play)
         ave_times = ave_time[i].text
         ave_times = re.sub('s', '', ave_times)
         if 'min' in ave_times:
             ave_times = re.sub('min', '', ave_times)
             ave_times = int(ave_times) * 60
-        datalist.append(ave_times)
-        datalist.append(approve[i].text)
+        datalist.append(int(ave_times))
+        datalist.append(int(approve[i].text))
         datalist.append(int(approve[i].text) / int(j))  # 点赞率
-        datalist.append(comment[i].text)
+        datalist.append(int(comment[i].text))
         datalist.append(int(comment[i].text) / int(j))
-        datalist.append(share[i].text)
+        datalist.append(int(share[i].text))
         datalist.append(int(share[i].text) / int(j))
-        datalist.append(Fans_raise[i].text)
+        datalist.append(int(Fans_raise[i].text))
         All_datalist.append(datalist)
-    print(len(day_list))
 
 def shipinhao():
-    datalist = []
+
     # browser.get('https://channels.weixin.qq.com/platform')
     # browser.maximize_window()
     while True:
@@ -440,48 +423,44 @@ def shipinhao():
     # comment_rate = int(comment) / int(play)
     share = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[8]')
     # share_rate = int(share) / int(play)
-    Fans_raise = '无法获取'
-    day_list = []
+    Fans_raise = ''
     for i in range(len(title)):
         datalist = []
         datalist.append(day)
         datalist.append(title[i].text)
         datalist.append(name)
         datalist.append(platform)
-        # 判断发布量
-        if Publish_time[i].text == day:
-            day_list.append(Publish_time[i].text)
         datalist.append(Publish_time[i].text)
         datalist.append('')
         j = play[i].text
         if "w" in j:
             j = re.sub('w', '', j)
-            print(j)
+
             j = float(j) * 10000
 
-        datalist.append(j)
+        datalist.append(int(j))
         datalist.append(finish_play[i].text)
         ave_times = ave_time[i].text
         ave_times = re.sub('\..*$','',ave_times)
         ave_times = re.sub('-', '0', ave_times)
-        datalist.append(ave_times)
-        datalist.append(approve[i].text)
+        datalist.append(int(ave_times))
+        datalist.append(int(approve[i].text))
 
         if j == '0':
-            datalist.append('0')  # 点赞率
-            datalist.append(comment[i].text)
-            datalist.append('0')
-            datalist.append(share[i].text)
-            datalist.append('0')
+            datalist.append(0)  # 点赞率
+            datalist.append(int(comment[i].text))
+            datalist.append(0)
+            datalist.append(int(share[i].text))
+            datalist.append(0)
         else:
             datalist.append(int(approve[i].text) / int(j))  # 点赞率
-            datalist.append(comment[i].text)
+            datalist.append(int(comment[i].text))
             datalist.append(int(comment[i].text) / int(j))
-            datalist.append(share[i].text)
+            datalist.append(int(share[i].text))
             datalist.append(int(share[i].text) / int(j))
         datalist.append(Fans_raise)
         All_datalist.append(datalist)
-    print(len(day_list))
+
 
 if __name__ == '__main__':
     MAXINDEX = 5

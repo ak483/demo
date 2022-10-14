@@ -75,8 +75,6 @@ def Get_Data(mod: str) -> list:
             answerList[i]=answerList[i] + ',' + answerList7[i]
 
 
-
-
         dataSetList.append({
             'titleList': titleList[i],
             'categoryList': categoryList[i],

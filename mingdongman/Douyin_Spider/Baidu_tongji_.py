@@ -41,8 +41,6 @@ Mobile_Outrate_ExcelDataList = (mainExcelDict['8月统计mobile'])['跳出率'].
 Mobile_state_ExcelDataList = (mainExcelDict['8月统计mobile'])['平均访问时长'].to_list()
 
 
-
-
 def PC_data(https):
 
 #整合数据列到一个列表

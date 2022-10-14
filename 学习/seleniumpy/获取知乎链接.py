@@ -32,10 +32,8 @@ for i in range(45):
 
     time.sleep(1)
     driver.execute_script("window.scrollTo(0,document.body.scrollHeight);")
-
     time.sleep(1)
     data = driver.page_source
-
     data_list.append(data)
 
     time.sleep(3)
