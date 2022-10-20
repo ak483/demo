@@ -2,18 +2,18 @@ import pandas as pd
 import xlwt,re
 
 mainExcelDict=pd.DataFrame=pd.read_excel(r'C:\Users\Adminitrator03\Desktop\test.xlsx',sheet_name=[
-        '41周客服数据','目标1','41周百度统计'
+        '42周客服数据','目标1','42周百度统计'
     ])
 
-PC_URL_ExcelDataList = (mainExcelDict['41周客服数据'])['着陆页面'].to_list()
-PC_count_ExcelDataList = (mainExcelDict['41周客服数据'])['接通人数'].to_list()
-PC_customer_ExcelDataList = (mainExcelDict['41周客服数据'])['入库客户数'].to_list()
-PC_count_rate_ExcelDataList = (mainExcelDict['41周客服数据'])['咨询率'].to_list()
+PC_URL_ExcelDataList = (mainExcelDict['42周客服数据'])['着陆页面'].to_list()
+PC_count_ExcelDataList = (mainExcelDict['42周客服数据'])['接通人数'].to_list()
+PC_customer_ExcelDataList = (mainExcelDict['42周客服数据'])['入库客户数'].to_list()
+PC_count_rate_ExcelDataList = (mainExcelDict['42周客服数据'])['咨询率'].to_list()
 Target_URL_ExcelDataList = (mainExcelDict['目标1'])['目标url1'].to_list()
-Baidu_fanke_ExcelDataList = (mainExcelDict['41周百度统计'])['访客数(UV)'].to_list()
-Baidu_URL_ExcelDataList = (mainExcelDict['41周百度统计'])['页面URL'].to_list()
-Baidu_Avg_state_ExcelDataList = (mainExcelDict['41周百度统计'])['平均停留时长（秒）'].to_list()
-Baidu_Out_rate_ExcelDatalist = (mainExcelDict['41周百度统计'])['跳出率'].to_list()
+Baidu_fanke_ExcelDataList = (mainExcelDict['42周百度统计'])['访客数(UV)'].to_list()
+Baidu_URL_ExcelDataList = (mainExcelDict['42周百度统计'])['页面URL'].to_list()
+Baidu_Avg_state_ExcelDataList = (mainExcelDict['42周百度统计'])['平均停留时长（秒）'].to_list()
+Baidu_Out_rate_ExcelDatalist = (mainExcelDict['42周百度统计'])['退出率'].to_list()
 
 def PC_data(https):
 #整合数据列到一个列表
@@ -149,6 +149,6 @@ if __name__ == '__main__':
         datalists.append(data)
     print(datalists)
 
-    savepath = "百度41周统计跳出率.xls"
+    savepath = "百度42周统计跳出率.xls"
     # 2.保存数据
     saveData(datalists, savepath)

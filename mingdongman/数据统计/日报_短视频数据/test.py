@@ -17,15 +17,15 @@ Douyin_All_datalist1 = []
 Shipinhao_All_datalist = []
 Shipinhao_All_datalist1 = []
 
-savepath = r"D:\untitled1\demo\mingdongman\日报Excel\统计账号2.xlsx"
-savepath1 = r"D:\untitled1\demo\mingdongman\短视频Excel\统计视频2.xlsx"
-day = '2022/10/18'
-video_day = '2022/10/19'
+savepath = r"D:\untitled1\demo\mingdongman\日报Excel\统计账号11.xlsx"
+savepath1 = r"D:\untitled1\demo\mingdongman\短视频Excel\统计视频11.xlsx"
+day = '2022/10/16'
+video_day = '2022/10/17'
 FILE_PATH_DICT = {
 
     # '浏览器个人配置': r'G:\Selenium_UserData\Mdm\one',#实验账号
     # '浏览器个人配置': r'G:\Selenium_UserData\ZhiHu\one',#账号一
-    '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Artstation\one',#账号二
+    # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Artstation\one',#账号二
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Pixiv\one',  # 账号三
     # '浏览器个人配置': r'G:\Selenium_UserData\BaiDu',#账号四
     # '浏览器个人配置': r'G:\Selenium_UserData\Bcy\one',#账号五
@@ -34,7 +34,7 @@ FILE_PATH_DICT = {
     # '浏览器个人配置': r'G:\Selenium_UserData\SaiGao\one',#账号八
     # '浏览器个人配置': r'G:\Selenium_UserData\Tao_Bao',#账号九
     # '浏览器个人配置': r'G:\Selenium_UserData\Taobao_QingKeTang',#账号十
-    # '浏览器个人配置': r'G:\Selenium_UserData\wangyi',#账号十一
+    '浏览器个人配置': r'G:\Selenium_UserData\wangyi',#账号十一
     # '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\one',#账号十二
 
     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
@@ -67,16 +67,16 @@ def Selenium_Login():
     # 获取名称
     global bili_name
     global bili_fans
-
     # switch_(FILE_PATH_DICT['b站个人主页'])
+    #
     # bili_name = browser.find_element(By.XPATH, '//span[@id="h-name"]').text
     # bili_fans = browser.find_element(By.XPATH, '//p[@class="n-data-v space-fans"]').text
     #
     # switch_(FILE_PATH_DICT['b站url'])
     # bilibili()
     # bilibili_video()
-    print(All_datalist)
-    print(All_datalist1)
+    # print(All_datalist)
+    # print(All_datalist1)
     browser.quit()
 
 def save1():#保存账号数据
@@ -800,8 +800,7 @@ def shipinhao_video1():
     time.sleep(1)
     browser.find_element(By.XPATH, '//span[text()="动态管理"]').click()
     time.sleep(2)
-    page = browser.find_elements(By.XPATH, '//span[@class="weui-desktop-pagination__num__wrp spread"]/label')#判断有多少
-
+    page = browser.find_elements(By.XPATH, '//span[@class="weui-desktop-pagination__num__wrp spread"]/label')#判断有多少页
     if len(page)==0:
         page = [1]
     for l in range(len(page)):

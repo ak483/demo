@@ -154,7 +154,7 @@ def Mdm_Video_Run(articleDataList: list):
 
 FILE_PATH_DICT = {
     '半自动洗稿项目': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\半自动洗稿项目-名动漫官网.xlsx',
-    '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221013.xlsx',
+    '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221018.xlsx',
     '标题保存': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\标题2.xlsx',
     '原文配图': 'https://mdm-article.oss-cn-shenzhen.aliyuncs.com/Article_Image/Fifth_Batch',
 
@@ -164,6 +164,8 @@ if __name__ == '__main__':
     # 发布问答数目
     MAXINDEX = 10
 
-    Mdm_Article_Run(Get_Data(mod='名动漫小站-名动漫-问答'))
+    # Mdm_Article_Run(Get_Data(mod='名动漫小站-名动漫-问答'))
+    # print('账号数据上传完毕')
     Mdm_Video_Run(Get_Video_Data(mod='名动漫小站-名动漫-短视频'))
+    # print("视频数据上传完毕")
     pass

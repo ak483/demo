@@ -391,8 +391,8 @@ def xiaohongshu():
 
 def shipinhao():
 
-    # browser.get('https://channels.weixin.qq.com/platform')
-    # browser.maximize_window()
+    browser.get('https://channels.weixin.qq.com/platform')
+    browser.maximize_window()
     while True:
         try:
             WebDriverWait(browser, 5, 1).until(EC.presence_of_all_elements_located((By.XPATH, '//span[text()="首页"]')))
@@ -403,14 +403,31 @@ def shipinhao():
     platform = '视频号'
     name = browser.find_element(By.XPATH, '//h2').text
 
+    # time.sleep(2)
+    # browser.find_element(By.XPATH, '//span[text()="数据中心"]').click()
+    # time.sleep(2)
+    # browser.find_element(By.XPATH, '//span[text()="动态数据"]').click()
+    # time.sleep(2)
+    # browser.find_element(By.XPATH, '//a[contains(text(),"单篇动态")]').click()
+    # time.sleep(2)
+    # browser.find_element(By.XPATH, '//span[contains(text(),"近30天数据")]').click()
+
+    browser.find_element(By.XPATH, '//span[text()="内容管理"]').click()
+    time.sleep(1)
+    browser.find_element(By.XPATH, '//span[text()="动态管理"]').click()
     time.sleep(2)
-    browser.find_element(By.XPATH, '//span[text()="数据中心"]').click()
-    time.sleep(2)
-    browser.find_element(By.XPATH, '//span[text()="动态数据"]').click()
-    time.sleep(2)
-    browser.find_element(By.XPATH, '//a[contains(text(),"单篇动态")]').click()
-    time.sleep(2)
-    browser.find_element(By.XPATH, '//span[contains(text(),"近30天数据")]').click()
+    page = browser.find_elements(By.XPATH, '//span[@class="weui-desktop-pagination__num__wrp spread"]/label')  # 判断有多少页
+
+    # browser.switch_to.(browser.find_element(By.XPATH,'//div[@class="post-view router-view"]'))
+
+
+    play = browser.find_elements('//div[@class="post-data"]/div[1]/span[2]')
+    comment = browser.find_elements('//div[@class="post-data"]/div[3]/span[2]')
+    approve = browser.find_elements('//div[@class="post-data"]/div[2]/span[2]')
+    share = browser.find_elements('//div[@class="post-data"]/div[4]/span[1]')
+    Publish_time = browser.find_elements('//div[@class="post-time"]/span')
+
+
 
     Publish_time = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[2]')
     title = browser.find_elements(By.XPATH, '//div[@class="post-wrap"]/span')
@@ -465,10 +482,10 @@ def shipinhao():
 if __name__ == '__main__':
     MAXINDEX = 5
 
-    Selenium_Login()
+    # Selenium_Login()
     # douyin()
     # kuaishou()
     # bilibili()
     # xiaohongshu()
-    # shipinhao()
+    shipinhao()
     pass

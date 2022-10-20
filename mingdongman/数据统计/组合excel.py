@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #
     # c.to_excel(after_path,sheet_name='短视频数据1')
 
-    writer = pd.ExcelWriter(r"D:\untitled1\Excel\短视频数据统计-20221013.xlsx")
+    writer = pd.ExcelWriter(r"D:\untitled1\Excel\短视频数据统计-20221018.xlsx")
     df.to_excel(writer, sheet_name='账号数据',index=False)
     df1.to_excel(writer, sheet_name='短视频数据',index=False)
     writer.save()
