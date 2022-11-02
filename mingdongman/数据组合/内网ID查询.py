@@ -19,11 +19,6 @@ def Get_Data(mod: str) -> list:
     print(mainExcelDict)
     mainExcelData = mainExcelDict['第六批2']['小站'].to_list()
 
-    # for i in range(len(mainExcelData)):
-    #   #  print(mainExcelData[i])
-    #     if mainExcelData[i]== nan:
-    #         del mainExcelData[i]
-
     print(mainExcelData)
 
 

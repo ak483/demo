@@ -1,3 +1,4 @@
+# coding=utf-8
 import os, time, sys, shutil, logging, re, random
 import pandas as pd
 from lxml import etree
@@ -14,7 +15,7 @@ logging.getLogger('').addHandler(console)
 
 sys.path.append(r'D:\untitled1')
 from demo.mingdongman.数据组合.MdmAPI import PlatformDataAPI
-# from My_code.名动漫.Mdm_API import ArticleClassAPI
+# from My_code.名动漫.Mdm_API import PlatformDataAPI
 
 
 dataSetList = []
@@ -22,26 +23,27 @@ def Get_Data(mod: str) -> list:
     # 读取模板
     mainExcelDict = pd.read_excel(
         FILE_PATH_DICT['平台统计'], sheet_name=[
-            '账号数据源表1'
+            '账号数据'
         ]
     )
-    mainExcelData = mainExcelDict['账号数据源表1']
+    mainExcelData = mainExcelDict['账号数据']
 
     #账号数据
-    statisticsDate = mainExcelData['统计日期'].to_list()
+    statisticsDate = mainExcelData['数据日期'].to_list()
     account = mainExcelData['账号'].to_list()
     platform = mainExcelData['所属平台'].to_list()
     releaseVolume = mainExcelData['发布量'].to_list()
     playVolume = mainExcelData['播放量'].to_list()
     likes = mainExcelData['点赞量'].to_list()
+    likesRate = mainExcelData['点赞率'].to_list()
     commentVolume = mainExcelData['评论量'].to_list()
+    commentRate = mainExcelData['评论率'].to_list()
     forwardVolume = mainExcelData['转发量'].to_list()
+    forwardRate = mainExcelData['转发率'].to_list()
     attentionVolume = mainExcelData['关注量'].to_list()
     attentionVolumeTotal = mainExcelData['累计关注量'].to_list()
 
     for i in range(len(statisticsDate)):
-        # if len(dataSetList) >= MAXINDEX:
-        #     break
 
         dataSetList.append({
             'statisticsDate': statisticsDate[i],
@@ -50,8 +52,11 @@ def Get_Data(mod: str) -> list:
             'releaseVolume': releaseVolume[i],
             'playVolume': playVolume[i],
             'likes': likes[i],
+            'likesRate': likesRate[i],
             'commentVolume': commentVolume[i],
+            'commentRate': commentRate[i],
             'forwardVolume': forwardVolume[i],
+            'forwardRate': forwardRate[i],
             'attentionVolume': attentionVolume[i],
             'attentionVolumeTotal': attentionVolumeTotal[i],
         })
@@ -64,49 +69,69 @@ def Get_Video_Data(mod: str) -> list:
     # 读取模板
     mainExcelDict = pd.read_excel(
         FILE_PATH_DICT['平台统计'], sheet_name=[
-            '视频数据源表'
+            '短视频数据'
         ]
     )
-    mainExcelData = mainExcelDict['视频数据源表']
+    mainExcelData = mainExcelDict['短视频数据']
 
     #账号数据
-    statisticsDate = mainExcelData['统计日期'].to_list()
+    statisticsDate = mainExcelData['数据日期'].to_list()
     title = mainExcelData['视频标题'].to_list()
     account = mainExcelData['所属账号'].to_list()
     platform = mainExcelData['所属平台'].to_list()
     publishDate = mainExcelData['发布日期'].to_list()
-    playVolume = mainExcelData['播放量（总）'].to_list()
+    playVolume = mainExcelData['播放量（增）'].to_list()
     completionRate = mainExcelData['完播率'].to_list()
     for i in range(len(completionRate)):
         if pd.isnull(completionRate[i]):
             completionRate[i]=completionRate[i]
-        else:
-            completionRate[i]=re.sub('%', '', str(completionRate[i]))
-
+        # else:
+        #     completionRate[i]=re.sub('%', '', str(completionRate[i]))
     averagePlayTime = mainExcelData['平均播放时长(s)'].to_list()
-    likes = mainExcelData['点赞量（总）'].to_list()
-    commentVolume = mainExcelData['评论量（总）'].to_list()
-    forwardVolume = mainExcelData['转发量（总）'].to_list()
-    fansVolume = mainExcelData['视频带粉数（总）'].to_list()
+    likes = mainExcelData['点赞量（增）'].to_list()
+    likesRate = mainExcelData['点赞率（点赞/播放）'].to_list()
+    commentVolume = mainExcelData['评论量（增）'].to_list()
+    commentRate = mainExcelData['评论率（评论/播放）'].to_list()
+    forwardVolume = mainExcelData['转发量（增）'].to_list()
+    forwardRate = mainExcelData['转发率（准发/播放）'].to_list()
+    fansVolume = mainExcelData['视频带粉数（增）'].to_list()
 
     for i in range(len(statisticsDate)):
-        if pd.isnull(averagePlayTime[i]):#平均播放时长
+        if pd.isnull(averagePlayTime[i]):#平均播放
             averagePlayTime[i]=''
         elif pd.isnull(completionRate[i]):#完播率
             completionRate[i]=''
+        elif pd.isnull(likes[i]):#点赞数
+            likes[i] = ''
+        elif pd.isnull(likesRate[i]):#点赞率
+            likesRate[i] = ''
+        elif pd.isnull(commentVolume[i]):#评论
+            commentVolume[i] = ''
+        elif pd.isnull(commentRate[i]):#评论率
+            commentRate[i] = ''
+        elif pd.isnull(forwardVolume[i]):#转发数
+            forwardVolume[i] = ''
+        elif pd.isnull(forwardRate[i]):#转发率
+            forwardRate[i] = ''
+        elif pd.isnull(fansVolume[i]):#视频带粉数
+            fansVolume[i] = ''
+
 
         dataSetList1.append({
             'statisticsDate': statisticsDate[i],
-            'title':title[i],
+            'title': title[i],
             'account': account[i],
             'platform': platform[i],
             'publishDate': publishDate[i],
             'playVolume': playVolume[i],
-            'completionRate':completionRate[i],
-            'averagePlayTime':averagePlayTime[i],
+            'completionRate': completionRate[i],
+            'averagePlayTime': averagePlayTime[i],
             'likes': likes[i],
+            'likesRate':likesRate[i],
             'commentVolume': commentVolume[i],
+            'commentRate':commentRate[i],
             'forwardVolume': forwardVolume[i],
+            'forwardRate':forwardRate[i],
             'fansVolume': fansVolume[i]
         })
 
@@ -126,9 +151,9 @@ def Mdm_Article_Run(articleDataList: list):
     for item in articleDataList:
         msg = platformDataAPI.Add_Count_Data(
             statisticsDate=item['statisticsDate'],account=item['account'],platform=item['platform'],
-            releaseVolume=item['releaseVolume'],playVolume=item['playVolume'], likes=item['likes'],
-            commentVolume=item['commentVolume'],forwardVolume=item['forwardVolume'],attentionVolume=item['attentionVolume'],
-            attentionVolumeTotal=item['attentionVolumeTotal']
+            releaseVolume=item['releaseVolume'],playVolume=item['playVolume'], likes=item['likes'],likesRate=item['likesRate'],
+            commentVolume=item['commentVolume'],commentRate=item['commentRate'],forwardVolume=item['forwardVolume'],
+            forwardRate=item['forwardRate'],attentionVolume=item['attentionVolume'],attentionVolumeTotal=item['attentionVolumeTotal']
         )
         print(msg)
     pass
@@ -148,24 +173,23 @@ def Mdm_Video_Run(articleDataList: list):
         msg = platformDataAPI.Add_Video_Data(
             statisticsDate=item['statisticsDate'],title=item['title'],account=item['account'],platform=item['platform'],
             publishDate=item['publishDate'],playVolume=item['playVolume'], completionRate=item['completionRate'],averagePlayTime=item['averagePlayTime'],
-            likes=item['likes'],commentVolume=item['commentVolume'],forwardVolume=item['forwardVolume'],fansVolume=item['fansVolume']
+            likes=item['likes'],likesRate=item['likesRate'],commentVolume=item['commentVolume'],commentRate=item['commentRate'],forwardVolume=item['forwardVolume'],
+            forwardRate=item['forwardRate'],fansVolume=item['fansVolume']
         )
         # print(msg)
     pass
 
 FILE_PATH_DICT = {
     '半自动洗稿项目': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\半自动洗稿项目-名动漫官网.xlsx',
-    '平台统计': r'\\Win-pp19bi8ic9t\g\流量部\自媒体矩阵\短视频\数据分析\日报\短视频数据分析表.xlsx',
-    # '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221011.xlsx',
     '标题保存': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\标题2.xlsx',
     '原文配图': 'https://mdm-article.oss-cn-shenzhen.aliyuncs.com/Article_Image/Fifth_Batch',
-
+    # '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221101.xlsx',
+    '平台统计': r'D:\untitled1\demo\Excel杂货间\新增数据221101.xlsx',
 }
 
 if __name__ == '__main__':
-    # 发布问答数目
-    MAXINDEX = 10
 
-    Mdm_Article_Run(Get_Data(mod='名动漫小站-名动漫-问答'))
-    # Mdm_Video_Run(Get_Video_Data(mod='名动漫小站-名动漫-短视频'))
+    # Mdm_Article_Run(Get_Data(mod='名动漫小站-名动漫-问答'))
+    Mdm_Video_Run(Get_Video_Data(mod='名动漫小站-名动漫-短视频'))
+    # print("视频数据上传完毕")
     pass

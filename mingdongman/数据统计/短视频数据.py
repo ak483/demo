@@ -6,6 +6,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 import time, pyperclip, sys, re, logging, MySQLdb, random, os,xlwt
 import pyautogui as pag
 import pandas as pd
+from lxml import html
+etree = html.etree
 
 sys.path.append(r'D:\untitled1')
 from My_code.Toolbox.Selenium import seleniumClass
@@ -21,12 +23,12 @@ FILE_PATH_DICT = {
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Pixiv\one',#账号三
     # '浏览器个人配置': r'G:\Selenium_UserData\BaiDu',#账号四
     # '浏览器个人配置': r'G:\Selenium_UserData\Bcy\one',#账号五
-    '浏览器个人配置': r'G:\Selenium_UserData\GuangWen',#账号六
+    # '浏览器个人配置': r'G:\Selenium_UserData\GuangWen',#账号六
     # '浏览器个人配置': r'G:\Selenium_UserData\MooYoo',#账号七
     # '浏览器个人配置': r'G:\Selenium_UserData\SaiGao\one',#账号八
     # '浏览器个人配置': r'G:\Selenium_UserData\Tao_Bao',#账号九
     # '浏览器个人配置': r'G:\Selenium_UserData\Taobao_QingKeTang',#账号十
-    # '浏览器个人配置': r'G:\Selenium_UserData\wangyi',#账号十一
+    '浏览器个人配置': r'G:\Selenium_UserData\wangyi',#账号十一
     # '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\one',#账号十二
 
     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
@@ -320,8 +322,8 @@ def bilibili():
 def xiaohongshu():
 
     #抓取的是近7日的
-    # browser.get('https://creator.xiaohongshu.com/login')
-    # browser.maximize_window()
+    browser.get('https://creator.xiaohongshu.com/login')
+    browser.maximize_window()
     while True:
         try:
             WebDriverWait(browser, 5, 1).until(EC.presence_of_all_elements_located((By.XPATH, '//a[text()="发布笔记"]')))
@@ -335,25 +337,35 @@ def xiaohongshu():
     name = browser.find_element(By.XPATH, '//span[@class="name-box"]').text
     platform = '小红书'
     time.sleep(2)
-    browser.find_element(By.XPATH, '//div[contains(text(),"笔记数据")]').click()
+    browser.find_element(By.XPATH, '//div[contains(text(),"笔记管理")]').click()
     time.sleep(1)
-    browser.find_element(By.XPATH, '//input[@readonly]').click()
-    time.sleep(1)
-    browser.find_element(By.XPATH, '//div[contains(text(),"48条")]').click()
-    time.sleep(1)
+    # browser.find_element(By.XPATH, '//input[@readonly]').click()
+    # time.sleep(1)
+    # browser.find_element(By.XPATH, '//div[contains(text(),"48条")]').click()
+    # time.sleep(1)
 
-    Publish_time = browser.find_elements(By.XPATH, '//span[@class="publish-time"]')
-    title = browser.find_elements(By.XPATH, '//span[@class="title"]')
-    play = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[1]/li[1]/b')
+    while True:
+        pag.moveTo(920, 950)  # 按键
+        pag.click()
+        pag.press('end')
+        try:
+            # WebDriverWait(browser, 5, 1).until(EC.presence_of_all_elements_located((By.XPATH, '//div[@class="end"]')))
+            WebDriverWait(browser, 5, 1).until(EC.visibility_of_element_located((By.XPATH, '//div[@class="end"]')))
+            time.sleep(3)
+            break
+        except Exception:
+            print(1)
+            continue
+
+    Publish_time = browser.find_elements(By.XPATH, '//div[@class="time"]')
+    title = browser.find_elements(By.XPATH, '//div[@class="info"]//div[@class="title"]')
+    play = browser.find_elements(By.XPATH, '//div[@class="icon_list"]/div[1]//span')
     finish_play = ''
-    ave_time = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[1]/li[2]/b')
-    approve = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[1]/li[3]/b')
-    # approve_rate = int(approve) / int(play)
-    comment = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[2]/li[1]/b')
-    # comment_rate = int(comment) / int(play)
-    share = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[2]/li[3]/b')
-    # share_rate = int(share) / int(play)
-    Fans_raise = browser.find_elements(By.XPATH, '//div[@class="info-list"]/ul[2]/li[4]/b')
+    ave_time = ''
+    approve = browser.find_elements(By.XPATH, '//div[@class="icon_list"]/div[3]//span')
+    comment = browser.find_elements(By.XPATH, '//div[@class="icon_list"]/div[2]//span')
+    share = browser.find_elements(By.XPATH, '//div[@class="icon_list"]/div[5]//span')
+    Fans_raise = ''
 
     for i in range(len(title)):
         datalist = []
@@ -403,81 +415,81 @@ def shipinhao():
     platform = '视频号'
     name = browser.find_element(By.XPATH, '//h2').text
 
-    # time.sleep(2)
-    # browser.find_element(By.XPATH, '//span[text()="数据中心"]').click()
-    # time.sleep(2)
-    # browser.find_element(By.XPATH, '//span[text()="动态数据"]').click()
-    # time.sleep(2)
-    # browser.find_element(By.XPATH, '//a[contains(text(),"单篇动态")]').click()
-    # time.sleep(2)
-    # browser.find_element(By.XPATH, '//span[contains(text(),"近30天数据")]').click()
-
+    browser.maximize_window()
+    platform = '视频号'
+    browser.find_element(By.XPATH, '//span[contains(text(),"首页")]').click()
+    name = browser.find_element(By.XPATH, '//h2').text
     browser.find_element(By.XPATH, '//span[text()="内容管理"]').click()
     time.sleep(1)
     browser.find_element(By.XPATH, '//span[text()="动态管理"]').click()
     time.sleep(2)
-    page = browser.find_elements(By.XPATH, '//span[@class="weui-desktop-pagination__num__wrp spread"]/label')  # 判断有多少页
+    page = browser.find_elements(By.XPATH, '//span[@class="weui-desktop-pagination__num__wrp spread"]/label')  # 判断有多少
 
-    # browser.switch_to.(browser.find_element(By.XPATH,'//div[@class="post-view router-view"]'))
+    if len(page) == 0:
+        page = [1]
+    for l in range(len(page)):
+
+        page_text = browser.page_source
+        tree = etree.HTML(page_text)
+
+        title = tree.xpath('//div[@class="post-title"]')
+        if len(title) == 0:
+            return False
+        play = tree.xpath('//div[@class="post-data"]/div[1]/span[2]')
+        comment = tree.xpath('//div[@class="post-data"]/div[3]/span[2]')
+        approve = tree.xpath('//div[@class="post-data"]/div[2]/span[2]')
+        share = tree.xpath('//div[@class="post-data"]/div[4]/span[1]')
+        Publish_time = tree.xpath('//div[@class="post-time"]/span')
+        waiting = len(browser.find_elements(By.XPATH, '//div[contains(text(),"将于20")]'))
+        for i in range(len(title) - waiting):
+            datalist = []
+            # datalist.append(video_day)
+            datalist.append(title[i + waiting].text)
+            datalist.append(name)
+            datalist.append(platform)
+            shipinhao_public_time = Publish_time[i].text
+            shipinhao_public_time = re.sub('年', '/', shipinhao_public_time)
+            shipinhao_public_time = re.sub('月', '/', shipinhao_public_time)
+            shipinhao_public_time = re.sub('日.*$', '', shipinhao_public_time)
+            datalist.append(shipinhao_public_time)
+            datalist.append('')  # 发布天数
+            j = play[i].text
+            if "万" in j:
+                j = re.sub('万', '', j)
+                j = float(j) * 10000
+            datalist.append(int(j))  # 播放量
+            datalist.append('')  # 完播率
+            datalist.append('')  # 平均播放时长
+            datalist.append(int(approve[i].text))  # 点赞量
+            if j == '0':
+                datalist.append(0)  # 点赞率
+                datalist.append(int(comment[i].text))
+                datalist.append(0)
+                datalist.append(int(share[i].text))
+                datalist.append(0)
+            else:
+                datalist.append(int(approve[i].text) / int(j))  # 点赞率
+                datalist.append(int(comment[i].text))
+                datalist.append(int(comment[i].text) / int(j))
+                datalist.append(int(share[i].text))
+                datalist.append(int(share[i].text) / int(j))
+            datalist.append('')  # 视频带粉
+
+        if len(page) != 1:
+            pag.moveTo(920, 950)  # 按键
+            pag.click()
+            pag.press('end')
+            time.sleep(1)
+            pag.moveTo(1100, 810)  # 按键
+            pag.click()
 
 
-    play = browser.find_elements('//div[@class="post-data"]/div[1]/span[2]')
-    comment = browser.find_elements('//div[@class="post-data"]/div[3]/span[2]')
-    approve = browser.find_elements('//div[@class="post-data"]/div[2]/span[2]')
-    share = browser.find_elements('//div[@class="post-data"]/div[4]/span[1]')
-    Publish_time = browser.find_elements('//div[@class="post-time"]/span')
+        #     browser.execute_script("window.scrollTo(0,document.body.scrollHeight);")
+        #     input('滑到底部')
 
-
-
-    Publish_time = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[2]')
-    title = browser.find_elements(By.XPATH, '//div[@class="post-wrap"]/span')
-    play = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[5]')
-    finish_play = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[3]')
-    ave_time = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[4]')
-    approve = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[6]')
-    # approve_rate = int(approve) / int(play)
-    comment = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[7]')
-    # comment_rate = int(comment) / int(play)
-    share = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[8]')
-    # share_rate = int(share) / int(play)
-    Fans_raise = ''
-    for i in range(len(title)):
-        datalist = []
-        datalist.append(day)
-        datalist.append(title[i].text)
-        datalist.append(name)
-        datalist.append(platform)
-        datalist.append(Publish_time[i].text)
-        datalist.append('')
-        j = play[i].text
-        if "w" in j:
-            j = re.sub('w', '', j)
-
-            j = float(j) * 10000
-
-        datalist.append(int(j))
-        datalist.append(finish_play[i].text)
-        ave_times = ave_time[i].text
-        ave_times = re.sub('\..*$','',ave_times)
-        ave_times = re.sub('-', '0', ave_times)
-        datalist.append(int(ave_times))
-        datalist.append(int(approve[i].text))
-
-        if j == '0':
-            datalist.append(0)  # 点赞率
-            datalist.append(int(comment[i].text))
-            datalist.append(0)
-            datalist.append(int(share[i].text))
-            datalist.append(0)
-        else:
-            datalist.append(int(approve[i].text) / int(j))  # 点赞率
-            datalist.append(int(comment[i].text))
-            datalist.append(int(comment[i].text) / int(j))
-            datalist.append(int(share[i].text))
-            datalist.append(int(share[i].text) / int(j))
-        datalist.append(Fans_raise)
-        All_datalist.append(datalist)
-
+        # time.sleep(1)
+    print('1')
+    return True
 
 if __name__ == '__main__':
     MAXINDEX = 5

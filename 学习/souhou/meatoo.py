@@ -1,13 +1,7 @@
 # coding=utf-8
 import requests,re,xlwt,threading
 import pandas as pd
-# FILE_PATH_DICT = {
-#     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
-#     '浏览器个人配置': r'G:\Selenium_UserData\Mdm\one',
-# }
-# from My_code.Toolbox.Selenium import seleniumClass
-# browser = seleniumClass().Selenium_Initialization_Chrome(FILE_PATH_DICT['浏览器驱动'], chromeUser=FILE_PATH_DICT['浏览器个人配置'])
-# browser.implicitly_wait(5)
+
 
 mainExcelDict=pd.DataFrame=pd.read_excel(r'D:\untitled1\demo\学习\souhou\meatoo_url2.xlsx',sheet_name=[
         '第一段'

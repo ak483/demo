@@ -60,3 +60,16 @@ print(1)
 #filter()函数返回的是一个iterrator，是一个惰性序列
 #sort()可以接受一个key函数自定义排序规则
 #可变参数* 和关键字参数**
+
+
+#asyncio 提供了完善的异步 IO 支持；
+#异步操作需要在 coroutine 中通过 yield from 完成；
+#多个 coroutine 可以封装成一组 Task 然后并发执行。
+
+#async/await是协程和生成器生成的异步操作的简化:
+#1. 把@asyncio.coroutine 替换为 async；
+#2. 把 yield from 替换为 await。
+
+
+#metaclass:元类
+#允许你创建类或者修改类，你可以把类看成是metaclass创建出来的实例

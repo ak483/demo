@@ -20,9 +20,9 @@ class PublicClass:
 
     def __init__(self):
         # 正式
-        # self.requestsUrl = 'https://api.mingdongman.com'
+        self.requestsUrl = 'https://api.mingdongman.com'
         # 测试
-        self.requestsUrl = 'http://new.adminapi.mingdongman.com'
+        # self.requestsUrl = 'http://new.adminapi.mingdongman.com'
         # 定义请求参数
         self.params = {
             'accessToken': '',
@@ -729,7 +729,8 @@ class PlatformDataAPI(PublicClass):
 #添加账户数据
      def Add_Count_Data(
              self, statisticsDate: str, account: str, platform: str, releaseVolume: int, playVolume: int,
-             likes: int, commentVolume: int, forwardVolume: '', attentionVolume: '', attentionVolumeTotal: int,
+             likes: int,likesRate:'', commentVolume: int, commentRate:'',forwardVolume: '',forwardRate:'',
+             attentionVolume: '',attentionVolumeTotal: int,
      ):
 
          self.__init__()
@@ -739,8 +740,11 @@ class PlatformDataAPI(PublicClass):
          self.params['releaseVolume'] = ''# 发布量
          self.params['playVolume'] = int(playVolume)# 播放量
          self.params['likes'] = int(likes)# 点赞量
+         self.params['likesRate'] = likesRate#点赞率
          self.params['commentVolume'] = int(commentVolume)# 评论量
+         self.params['commentRate'] = commentRate#点赞率
          self.params['forwardVolume'] = forwardVolume# 转发量
+         self.params['forwardRate'] = forwardRate#转发率
          self.params['attentionVolume'] = int(attentionVolume)# 关注量
          self.params['attentionVolumeTotal'] = attentionVolumeTotal# 累计关注量
 
@@ -750,8 +754,9 @@ class PlatformDataAPI(PublicClass):
          return responseJson
 
      def Add_Video_Data(
-             self, statisticsDate: str, title: str, account: str, platform: str, publishDate: str, playVolume: int,
-             completionRate: '', averagePlayTime: None, likes: int, commentVolume: int, forwardVolume: '', fansVolume: ''
+             self, statisticsDate: str, title: str, account: str, platform: str, publishDate: str, playVolume: '',
+             completionRate: '', averagePlayTime: '', likes: '',likesRate:'', commentVolume: '', commentRate:'',
+             forwardVolume: '', forwardRate:'',fansVolume: ''
      ):
          """
                 statisticsDate = mainExcelData['数据日期'].to_list()
@@ -763,8 +768,11 @@ class PlatformDataAPI(PublicClass):
                 completionRate = mainExcelData['完播率'].to_list()
                 averagePlayTime = mainExcelData['平均播放时长(s)'].to_list()
                 likes = mainExcelData['点赞量（总）'].to_list()
+                likesRate
                 commentVolume = mainExcelData['评论量（总）'].to_list()
+                commentRate
                 forwardVolume = mainExcelData['转发量（总）'].to_list()
+                forwardRate
                 fansVolume = mainExcelData['视频带粉数（总）'].to_list()
          """
 
@@ -774,13 +782,16 @@ class PlatformDataAPI(PublicClass):
          self.params['account'] = str(account)# 所属账号
          self.params['platform'] = str(platform)# 所属平台
          self.params['publishDate'] = str(publishDate)# 发布日期
-         self.params['playVolume'] = int(playVolume)# 播放量
+         self.params['playVolume'] = playVolume# 播放量
          self.params['completionRate'] = completionRate  # 完播率
          self.params['averagePlayTime'] = averagePlayTime  # 平均播放时长
-         self.params['likes'] = int(likes)# 点赞量
-         self.params['commentVolume'] = int(commentVolume)# 评论量
+         self.params['likes'] = likes # 点赞量
+         self.params['likesRate'] = likesRate  # 点赞率
+         self.params['commentVolume'] = commentVolume # 评论量
+         self.params['commentRate'] = commentRate  # 评论率
          self.params['forwardVolume'] = forwardVolume# 转发量
-         self.params['fansVolume'] = fansVolume  # 转发量
+         self.params['forwardRate'] = forwardRate  # 转发率
+         self.params['fansVolume'] = fansVolume  # 增粉
 
 
          self.Params()
