@@ -1,0 +1,49 @@
+我们知道在爬虫开发中，很多人都会遇到登录验证这个问题，在爬取的数据量不大的情况下我们可以采用cookies来解决登录验证和身份校验的问题，快速获取到我们需要的数据。
+接下来我们用cookies模拟登陆淘宝讲解cookies的具体应用。
+
+具体步骤如下：
+一.用selenium模拟登录淘宝。
+二.用get_cookies()函数获取所需cookie，
+三.修改cookie数据格式
+四.用requests携带cookies获取数据
+五.清洗输出
+
+
+一、selenium模拟登录淘宝
+1、引入selenium，创建driver对象
+from selenium import webdriver
+driver = webdriver.Chrome()
+
+2、模拟登录并获取cookie：
+url = 'https://login.taobao.com/member/login.jhtml'
+driver.get(url)
+time.sleep(20)
+cookies = browser.get_cookies()  # 获取cookie
+
+3、清洗cookie数据格式：
+#get_cookies()返回的是由字典组成的列表，我们并不需要cookie的所有内容，用for循环提取出我们所需的内容：
+cookie_dict = {}#创建空字典
+for item in cookies:
+    cookie_dict[item['name']] = item['value']
+
+4、用requests携带cookies获取数据：
+#设置请求头
+headers ={
+    "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"'
+
+}
+#这里以获取耳机为例
+url = 'https://s.taobao.com/search?q=耳机'
+res = requests.get(url, headers=headers, cookies=cookie_dict).text
+
+5、用正则清洗入库：
+title = re.findall('"raw_title":"(.*?)"', res)
+price = re.findall('"view_price":"(.*?)"', res)
+sale = re.findall('"view_sales":"(.*?)人付款"', res)
+
+6、打印输出获取到的信息：
+for i in range(len(title)):
+    print(title[i] + '，价格为：' + price[i] + '，销量为：' + sale[i])
+
+至此，一次简单的cookie模拟登录就完成
+ps：selenium库需要用到chromedriver，自行登录官网下载浏览器对应的版本即可。

@@ -18,11 +18,14 @@ Douyin_All_datalist1 = []
 Shipinhao_All_datalist = []
 Shipinhao_All_datalist1 = []
 
-savepath = r"D:\untitled1\demo\mingdongman\日报Excel\统计账号13.xlsx"
-savepath1 = r"D:\untitled1\demo\mingdongman\短视频Excel\统计视频13.xlsx"
-day = '2022/11/1'
-video_day = '2022/11/2'
 
+
+day = time.strftime('%Y/%m/%d', time.localtime(time.time() - 86400))#日报数据（前一天）
+video_day = time.strftime('%Y/%m/%d',time.localtime(time.time()))#视频数据（今天）
+
+
+savepath = r"D:\untitled1\demo\mingdongman\日报Excel\统计账号14.xlsx"
+savepath1 = r"D:\untitled1\demo\mingdongman\短视频Excel\统计视频14.xlsx"
 FILE_PATH_DICT = {
     # '浏览器个人配置': r'G:\Selenium_UserData\Mdm\one',#实验账号
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Pixiv\one',  # 账号1
@@ -32,11 +35,13 @@ FILE_PATH_DICT = {
     # '浏览器个人配置': r'G:\Selenium_UserData\MooYoo',#账号5
     # '浏览器个人配置': r'G:\Selenium_UserData\SaiGao\one',#账号6
     # '浏览器个人配置': r'G:\Selenium_UserData\Tao_Bao',#账号7
-    '浏览器个人配置': r'G:\Selenium_UserData\Taobao_QingKeTang',#账号8
+    # '浏览器个人配置': r'G:\Selenium_UserData\Taobao_QingK eTang',#账号8
     # '浏览器个人配置': r'G:\Selenium_UserData\wangyi',#账号9
     # '浏览器个人配置': r'G:\Selenium_UserData\ZhiHu\one',#账号10
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Artstation\one',#账号11
-    # '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\one',#账号官网
+    # '浏览器个人配置': r'G:\Selenium_UserData\ZhiHu\two',#账号12
+    # '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\two',#账号13
+    '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\one',#账号官网
 
     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
     '抖音url': r'https://creator.douyin.com/creator-micro/home',
@@ -65,7 +70,7 @@ def Selenium_Login():
     # if shipinhao_video1():#获取视频号所有视频
     #     shipinhao_video()
 
-    # 获取名称
+    # # 获取名称
     global bili_name
     global bili_fans
 
@@ -155,9 +160,14 @@ def douyin():#抖音账号日报
         share_rate = 0
         comment_rate = 0
     else:
+        if "w" in Play:
+            Play = re.sub('w', '', Play)
+            Play = float(Play) * 10000
         approve_rate = int(approve) / int(Play)
         share_rate = int(share) / int(Play)
         comment_rate = int(comment) / int(Play)
+
+
 
     datalist.append(day)
     datalist.append(name)
@@ -245,6 +255,7 @@ def douyin_video():#获取抖音最近30天发布的作品
     name = browser.find_element(By.XPATH, '//div[@class="baseinfo--2Vic1"]//div[@class="baseinfo--2Vic1"]').text
     platform = '抖音'
     browser.find_element(By.XPATH, '//span[text()="作品数据"]').click()
+    time.sleep(1)
     Publish_time = browser.find_elements(By.XPATH, '//div[@class="date-text--2Aa6v"]')
     waiting = browser.find_elements(By.XPATH, '//div[@class="date-text--2Aa6v primary--Y5e2C"]')#用len(waiting)判断定时作品
     if len(Publish_time) == 0: #判断是否存在最近30天作品
@@ -271,10 +282,22 @@ def douyin_video():#获取抖音最近30天发布的作品
             if "w" in j:
                 j = re.sub('w','',j)
                 j = float(j)*10000
-            elif j == '0':
+
+            if j == '0':
                 approve_rate = 0
                 share_rate = 0
                 comment_rate = 0
+                # 清洗发布时间
+                douyin_public_time = Publish_time[i].text
+                douyin_public_time = re.sub('年', '/', douyin_public_time)
+                douyin_public_time = re.sub('月', '/', douyin_public_time)
+                douyin_public_time = re.sub('日.*$', '', douyin_public_time)
+                j = int(j)
+                approvet = int(approvet)
+                commentt = int(commentt)
+                sharet = int(sharet)
+                Fans_raiset = int(Fans_raiset)
+
             elif j =='-':#当作品处于定时发布状态时
 
                 douyin_public_time = ''
@@ -348,18 +371,24 @@ def kuaishou():
     approve = div_list[4].text
     share = div_list[5].text
     platform = "快手"
-
     Play = re.sub(',', '', Play)
+    Play = re.sub('\+', '', Play)
+    if "万" in Play:
+        Play = re.sub('万', '', Play)
+        Play = float(Play) * 10000
+
+
     Fans_raise = re.sub(',', '', Fans_raise)
     comment = re.sub(',', '', comment)
     approve = re.sub(',', '', approve)
     share = re.sub(',', '', share)
-    Play = re.sub('\+', '', Play)
     Fans_raise = re.sub('\+', '', Fans_raise)
     comment = re.sub('\+', '', comment)
     approve = re.sub('\+', '', approve)
     share = re.sub('\+', '', share)
     fans = re.sub(',', '', fans)
+
+
 
     if Play == '0':
         approve_rate = 0
@@ -737,7 +766,8 @@ def xiaohongshu_video():
             continue
 
     # while True:
-    Publish_time = browser.find_elements(By.XPATH, '//div[@class="time"]')
+    waiting = len(browser.find_elements(By.XPATH, '//div[contains(text(),"等待发布")]'))
+    Publish_time = browser.find_elements(By.XPATH, '//div[@class="time_status"]//div[@class="time"]')
     if len(Publish_time)==0:
         return
     title = browser.find_elements(By.XPATH, '//div[@class="info"]//div[@class="title"]')
@@ -752,12 +782,15 @@ def xiaohongshu_video():
     for i in range(len(play)):
         datalist = []
         datalist.append(video_day)
-        datalist.append(title[i].text)
+        datalist.append(title[i+waiting].text)
         datalist.append(name)
         datalist.append(platform)
         xiaohongshu_public_time = Publish_time[i].text
-        xiaohongshu_public_time = re.sub('发布于 ', '', xiaohongshu_public_time)
-        xiaohongshu_public_time = re.sub('-', '/', xiaohongshu_public_time)
+        xiaohongshu_public_time = re.sub('年', '/', xiaohongshu_public_time)
+        xiaohongshu_public_time = re.sub('月', '/', xiaohongshu_public_time)
+        xiaohongshu_public_time = re.sub('日.*$', '', xiaohongshu_public_time)
+
+
 
         datalist.append(xiaohongshu_public_time)
         datalist.append('')
@@ -962,19 +995,14 @@ def shipinhao_video():
         share = browser.find_elements(By.XPATH, '//tr[@class="ant-table-row ant-table-row-level-0"]/td[8]')
         Fans_raise = ''
         for i in range(len(title)):
-
             datalist = []
-
             j = play[i].text
             if "万" in j:
                 j = re.sub('万', '', j)
-
                 j = float(j) * 10000
-
             ave_times = ave_time[i].text
             ave_times = re.sub('\..*$', '', ave_times)
             ave_times = re.sub('-', '0', ave_times)
-
             datalist.append(video_day)
             datalist.append(title[i].text)
             datalist.append(name)
@@ -1002,12 +1030,12 @@ def shipinhao_video():
                 datalist.append(int(share[i].text) / int(j))
             datalist.append(Fans_raise)
             Shipinhao_All_datalist1.append(datalist)#最近30天的视频
-            for i in range(len(Shipinhao_All_datalist1)):#将最近30天的作品并入所有作品中
-                #判断最近30天的视频是否在作品列表里
-                for j in range(len(Shipinhao_All_datalist)):
-                    if Shipinhao_All_datalist1[i][1]==Shipinhao_All_datalist[j][1]:
-                        Shipinhao_All_datalist[j][8]=Shipinhao_All_datalist1[i][7]#完播
-                        Shipinhao_All_datalist[j][9] = Shipinhao_All_datalist1[i][8]#均播
+        for i in range(len(Shipinhao_All_datalist1)):#将最近30天的作品并入所有作品中
+            #判断最近30天的视频是否在作品列表里
+            for j in range(len(Shipinhao_All_datalist)):
+                if Shipinhao_All_datalist1[i][1]==Shipinhao_All_datalist[j][1]:
+                    Shipinhao_All_datalist[j][8]=Shipinhao_All_datalist1[i][7]#完播
+                    Shipinhao_All_datalist[j][9] = Shipinhao_All_datalist1[i][8]#均播
 
                 # Shipinhao_All_datalist[i]=Shipinhao_All_datalist1[i]
 

@@ -16,7 +16,7 @@ print(res)
 
 imgs = re.findall('cdn_url: \'(.*?)\'',res)
 print(imgs)
-x=0
+x= 0
 paths = r'D:\untitled1\demo\学习\seleniumpy'+'\\'
 for i in range(len(imgs)):
     # filename = str(i) + '.jpg'

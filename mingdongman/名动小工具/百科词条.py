@@ -38,8 +38,6 @@ mainExcelData = mainExcelData[(mainExcelData['发布状态'] == 2)]
 
 titleList = mainExcelData['词条名称'].to_list()
 
-
-
 def Selenium_Control():
 
 
@@ -94,9 +92,6 @@ def Selenium_Control():
     browser.find_element(By.XPATH, '//span[contains(text(),"百科列表")]').click()
     time.sleep(3)
 
-
-
-
     # 浏览器
     for i in range(len(titleList)):
         # 标题
@@ -139,23 +134,12 @@ def Selenium_Control():
         time.sleep(2)
         pag.press('enter')
         # pag.press('space')
-        # pag.press('space')
-        # pag.press('space')
-        # pag.press('space')
-        # pag.press('space')
-        # pag.press('space')
-        # pag.press('space')
-
 
         # 确定
         browser.find_element(By.XPATH, '//div[@class="el-dialog__footer"]//button[2]').click()
         time.sleep(2)
         browser.refresh()
         time.sleep(2)
-
-
-
-
 
 # selenium控制
 Selenium_Control()

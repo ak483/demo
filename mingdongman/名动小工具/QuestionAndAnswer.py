@@ -144,7 +144,7 @@ FILE_PATH_DICT = {
 
 if __name__ == '__main__':
     # 发布问答数目
-    MAXINDEX = 1
+    MAXINDEX = 10
 
     Mdm_Article_Run(Get_Data(mod='名动漫小站-名动漫-问答'))
     pass

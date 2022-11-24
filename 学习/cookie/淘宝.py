@@ -11,7 +11,8 @@ option = webdriver.ChromeOptions()
 option.add_experimental_option("excludeSwitches", ['enable-automation'])
 
 headers ={
-    "User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36'
+    "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"'
+
 }
 
 browser = webdriver.Chrome()
@@ -26,7 +27,7 @@ for item in cookies:
     cookie_dict[item['name']] = item['value']
 
 # 3.Requests库使用Cookie
-url = 'https://s.taobao.com/search?q=大码女装'
+url = 'https://s.taobao.com/search?q=耳机'
 res = requests.get(url, headers=headers, cookies=cookie_dict).text
 
 print(res)
