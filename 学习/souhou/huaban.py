@@ -602,6 +602,9 @@ class HuaBanClass:
         :param getImgUrl: 是否获取URL链接
         :return:
         """
+        # global worksNameStr
+        # worksNameStr = str(worksDataList['nameStr'])
+
 
         # 登录
         browser = self.Selenium_Login(userName, userPass)
@@ -714,6 +717,7 @@ class HuaBanClass:
                 logging.info(f'没有找到该分类画板：{data[4]}')
                 huaBanList.append(input('输入分类画板名称：'))
                 sys.stdout.flush()
+        pass
 
         del data, _
 
@@ -734,14 +738,12 @@ class HuaBanClass:
             time.sleep(0.5)
             while True:
                 ActionChains(browser).move_to_element(
-                    (browser.find_elements(By.XPATH,'//*[contains(@class,"mRDw5P7W")]'))[-1]
+                    (browser.find_elements(By.XPATH,'//div[@class="ant-dropdown-trigger EzlxjT3_"]'))[-1]
                 ).perform()
                 time.sleep(0.5)
 
                 try:
-                    browser.find_element(By.XPATH, '//*[@title="创建"]').click()
-                    time.sleep(1)
-                    browser.find_element(By.XPATH,'//a[@data-button-name="上传采集"]').click()
+                    browser.find_element(By.XPATH,'//span[text()="上传采集"]').click()
                     break
                 except Exception:
                     logging.info(fr'点击添加采集失败 -> 正在重试...')
@@ -964,6 +966,7 @@ def Mouse_Move(requestsImgTh: threading.Thread):
     pag.moveTo(1000, 600, duration=0.8)
     pag.click(1000, 600)
     time.sleep(0.5)
+
     # pyperclip.copy(FILE_PATH_DICT['站酷花瓣图片下载地址'])
     pyperclip.copy(r'G:\2345下载 - 副本'+f'\{worksNameStr}.jpg')
     pag.hotkey('ctrl', 'v')
@@ -1081,41 +1084,41 @@ FILE_PATH_DICT = {
 }
 
 if __name__ == '__main__':
-    a = ZcoolClass()
-    startId = 6557
-    # , ['18027112900', 'Mingdong1314..']
-    for userName, userPass in [['18613118817', 'mingdongman2022']]:
-        # 请求数据
-        successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=100, arcrankInt=0)
-
-        #从这里开始对比
-
-
-        if isinstance(successData, str):
-            logging.info(f'请求失败：{successData}')
-
-        # 发布作品
-        a.Zcool(userName, userPass, successData, False)
-        # 获取作品链接
-        # a.Zcool(userName, userPass, successData, True)
-
-        # 只发一个账号
-        break
-
-    # a = HuaBanClass()
-    # startId = 6320
+    # a = ZcoolClass()
+    # startId = 6457
+    # # , ['18027112900', 'Mingdong1314..']
     # for userName, userPass in [['18613118817', 'mingdongman2022']]:
     #     # 请求数据
-    #     successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=20, arcrankInt=0)
+    #     successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=100, arcrankInt=0)
+    #
+    #     #从这里开始对比
+    #
+    #
     #     if isinstance(successData, str):
     #         logging.info(f'请求失败：{successData}')
     #
     #     # 发布作品
-    #     a.Huaban(userName, userPass, successData, False)
+    #     a.Zcool(userName, userPass, successData, False)
     #     # 获取作品链接
-    #     # a.Huaban(userName, userPass, successData, True)
+    #     # a.Zcool(userName, userPass, successData, True)
     #
     #     # 只发一个账号
     #     break
-    #
+
+    a = HuaBanClass()
+    startId = 6320
+    for userName, userPass in [['18613118817', 'mingdongman2022']]:
+        # 请求数据
+        successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=20, arcrankInt=0)
+        if isinstance(successData, str):
+            logging.info(f'请求失败：{successData}')
+
+        # 发布作品
+        a.Huaban(userName, userPass, successData, False)
+        # 获取作品链接
+        # a.Huaban(userName, userPass, successData, True)
+
+        # 只发一个账号
+        break
+
     # pass

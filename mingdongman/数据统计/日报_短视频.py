@@ -73,7 +73,7 @@ def Selenium_Login():
     # # 获取名称
     global bili_name
     global bili_fans
-
+    #
     # switch_(FILE_PATH_DICT['b站个人主页'])
     # bili_name = browser.find_element(By.XPATH, '//span[@id="h-name"]').text
     # bili_fans = browser.find_element(By.XPATH, '//p[@class="n-data-v space-fans"]').text
@@ -490,7 +490,7 @@ def kuaishou_video():
             a = re.sub(',', '', str(a))
             if "万" in a:
                 a = re.sub('万', '', a)
-                a = int((float(a),) * 10000)
+                a = int((float(a)) * 10000)
             elif "--" in a:
                 a = 0
 

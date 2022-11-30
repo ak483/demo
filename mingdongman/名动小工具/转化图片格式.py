@@ -2,8 +2,8 @@ import os
 
 from PIL import Image
 
-path1 = "C:\\Users\\Adminitrator03\\Desktop\\baike\\"
-path2 = "C:\\Users\\Adminitrator03\\Desktop\\baikeform\\"
+path1 = "G:\\2345下载 - 副本"
+path2 = "G:\\2345下载 - 副本1"
 
 
 def jpeg2jpg(path_in, path_out):
