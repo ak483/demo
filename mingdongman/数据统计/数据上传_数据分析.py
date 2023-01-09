@@ -183,8 +183,8 @@ FILE_PATH_DICT = {
     '半自动洗稿项目': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\半自动洗稿项目-名动漫官网.xlsx',
     '标题保存': r'\\DESKTOP-J6ECV53\Users\Adminitrator03\Desktop\脚本运行产生的文件\半自动洗稿\标题2.xlsx',
     '原文配图': 'https://mdm-article.oss-cn-shenzhen.aliyuncs.com/Article_Image/Fifth_Batch',
-    # '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221129.xlsx',
-    '平台统计': r'D:\untitled1\demo\Excel杂货间\新增数据221129.xlsx',
+    # '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221207.xlsx',
+    '平台统计': r'D:\untitled1\demo\Excel杂货间\新增数据221207.xlsx',
 }
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ import jsonpath,random
 All_url = []
 
 def save(All_datalist):#保存账号数据
-    savepath = r'D:\untitled1\demo\Excel杂货间\插画图片壁纸1.xlsx'
+    savepath = r'D:\untitled1\demo\Excel杂货间\原画.xlsx'
     book = xlwt.Workbook(encoding="utf-8", style_compression=0)  # 创建workbook对象
     sheet = book.add_sheet('插图', cell_overwrite_ok=True)
     col = ("信息",)

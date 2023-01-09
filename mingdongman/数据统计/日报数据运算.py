@@ -5,11 +5,11 @@ from lxml import etree
 
 FILE_PATH_DICT = {
 
-    '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221128.xlsx',
-    '平台统计1': r'D:\untitled1\Excel\短视频数据统计-20221129.xlsx',
+    '平台统计': r'D:\untitled1\Excel\短视频数据统计-20221206.xlsx',
+    '平台统计1': r'D:\untitled1\Excel\短视频数据统计-20221207.xlsx',
 }
 
-savepath = r'D:\untitled1\demo\Excel杂货间\新增数据221129.xlsx'
+savepath = r'D:\untitled1\demo\Excel杂货间\新增数据221207.xlsx'
 def save():#保存短视频数据
     book = xlwt.Workbook(encoding="utf-8", style_compression=0)  # 创建workbook对象
     sheet = book.add_sheet('短视频数据', cell_overwrite_ok=True)

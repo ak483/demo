@@ -269,6 +269,7 @@ FILE_PATH_DICT = {
     '浏览器程序': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
     '站酷花瓣': r'G:\站酷_花瓣',
     '站酷花瓣图片下载地址': r'G:\站酷_花瓣\IMG',
+
     '二维码去除': r'G:\站酷_花瓣\QR_code',
     '站酷用户': r'F:\Selenium_UserData\zcool',
     '花瓣用户': r'F:\Selenium_UserData\huaban',
@@ -278,10 +279,10 @@ FILE_PATH_DICT = {
 if __name__ == '__main__':
 
     a = HuaBanClass()
-    startId = 6340
+    startId = 6853
     for userName, userPass in [['18613118817', 'mingdongman2022']]:
         # 请求数据
-        successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=20, arcrankInt=0)
+        successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=100, arcrankInt=0)
         if isinstance(successData, str):
             logging.info(f'请求失败：{successData}')
 

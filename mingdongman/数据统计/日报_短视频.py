@@ -18,20 +18,17 @@ Douyin_All_datalist1 = []
 Shipinhao_All_datalist = []
 Shipinhao_All_datalist1 = []
 
-
-
 day = time.strftime('%Y/%m/%d', time.localtime(time.time() - 86400))#日报数据（前一天）
 video_day = time.strftime('%Y/%m/%d',time.localtime(time.time()))#视频数据（今天）
 
-
-savepath = r"D:\untitled1\demo\mingdongman\日报Excel\统计账号14.xlsx"
-savepath1 = r"D:\untitled1\demo\mingdongman\短视频Excel\统计视频14.xlsx"
+savepath = r"D:\untitled1\demo\mingdongman\日报Excel\统计账号4.xlsx"
+savepath1 = r"D:\untitled1\demo\mingdongman\短视频Excel\统计视频4.xlsx"
 FILE_PATH_DICT = {
     # '浏览器个人配置': r'G:\Selenium_UserData\Mdm\one',#实验账号
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Pixiv\one',  # 账号1
     # '浏览器个人配置': r'G:\Selenium_UserData\BaiDu',#账号2
     # '浏览器个人配置': r'G:\Selenium_UserData\Bcy\one',#账号3
-    # '浏览器个人配置': r'G:\Selenium_UserData\GuangWen',#账号4
+    '浏览器个人配置': r'G:\Selenium_UserData\GuangWen',#账号4
     # '浏览器个人配置': r'G:\Selenium_UserData\MooYoo',#账号5
     # '浏览器个人配置': r'G:\Selenium_UserData\SaiGao\one',#账号6
     # '浏览器个人配置': r'G:\Selenium_UserData\Tao_Bao',#账号7
@@ -41,7 +38,7 @@ FILE_PATH_DICT = {
     # '浏览器个人配置': r'G:\Selenium_UserData\Artstation_Pixiv\Artstation\one',#账号11
     # '浏览器个人配置': r'G:\Selenium_UserData\ZhiHu\two',#账号12
     # '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\two',#账号13
-    '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\one',#账号官网
+    # '浏览器个人配置': r'G:\Selenium_UserData\WeiBo\one',#账号官网
 
     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
     '抖音url': r'https://creator.douyin.com/creator-micro/home',
@@ -59,28 +56,28 @@ def Selenium_Login():
     douyin()
     if douyin_video1():#获取所有抖音作品
         douyin_video()#获取抖音最近30天
-    # switch_(FILE_PATH_DICT['快手url'])
-    # if kuaishou():
-    #     kuaishou_video()
-    # switch_(FILE_PATH_DICT['小红书url'])
-    # xiaohongshu()
-    # xiaohongshu_video()
-    # switch_(FILE_PATH_DICT['视频号url'])
-    # shipinhao()
-    # if shipinhao_video1():#获取视频号所有视频
-    #     shipinhao_video()
+    switch_(FILE_PATH_DICT['快手url'])
+    if kuaishou():
+        kuaishou_video()
+    switch_(FILE_PATH_DICT['小红书url'])
+    xiaohongshu()
+    xiaohongshu_video()
+    switch_(FILE_PATH_DICT['视频号url'])
+    shipinhao()
+    if shipinhao_video1():#获取视频号所有视频
+        shipinhao_video()
 
     # # 获取名称
     global bili_name
     global bili_fans
-    #
-    # switch_(FILE_PATH_DICT['b站个人主页'])
-    # bili_name = browser.find_element(By.XPATH, '//span[@id="h-name"]').text
-    # bili_fans = browser.find_element(By.XPATH, '//p[@class="n-data-v space-fans"]').text
-    #
-    # switch_(FILE_PATH_DICT['b站url'])
-    # bilibili()
-    # bilibili_video()
+
+    switch_(FILE_PATH_DICT['b站个人主页'])
+    bili_name = browser.find_element(By.XPATH, '//span[@id="h-name"]').text
+    bili_fans = browser.find_element(By.XPATH, '//p[@class="n-data-v space-fans"]').text
+
+    switch_(FILE_PATH_DICT['b站url'])
+    bilibili()
+    bilibili_video()
     print(All_datalist)
     print(All_datalist1)
     # input('检查日期并确认关闭浏览器')
@@ -954,12 +951,16 @@ def shipinhao_video1():
 
             Shipinhao_All_datalist.append(datalist)
         if len(page)!=1:
+
             pag.moveTo(920, 950)  # 按键
             pag.click()
             pag.press('end')
-            time.sleep(1)
-            pag.moveTo(1100, 810)  # 按键
-            pag.click()
+            time.sleep(2)
+            pag.moveTo(1095, 810)  # 按键
+            # pag.click()
+            input('点击下一页')
+
+
 
     #     browser.execute_script("window.scrollTo(0,document.body.scrollHeight);")
         #     input('滑到底部')

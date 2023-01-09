@@ -295,7 +295,7 @@ class ZcoolClass:
 
             elif worksClass_ == '动漫':
                 # 选择其他漫画
-                browser.find_elemen(By.XPATH,'//li[contains(text(),"其他动漫")]').click()
+                browser.find_element(By.XPATH,'//li[contains(text(),"其他动漫")]').click()
                 # browser.find_elemen(By.XPATH, '//li[contains(text(),"其他动漫")]').click()
                 # pag.press('enter')
 
@@ -305,7 +305,7 @@ class ZcoolClass:
 
             elif worksClass_ == '三维':
                 # 选择其他三维
-                browser.find_elemen(By.XPATH,'//section[contains(@class,"listSubBox")]/ul/li[7]').click()
+                browser.find_element(By.XPATH,'//section[contains(@class,"listSubBox")]/ul/li[7]').click()
 
             else:
                 logging.info(f'手动选择二级分类：{worksClass__}')
@@ -1082,7 +1082,7 @@ FILE_PATH_DICT = {
 
 if __name__ == '__main__':
     a = ZcoolClass()
-    startId = 6557
+    startId = 6938
     # , ['18027112900', 'Mingdong1314..']
     for userName, userPass in [['18613118817', 'mingdongman2022']]:
         # 请求数据

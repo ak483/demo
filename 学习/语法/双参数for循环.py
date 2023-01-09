@@ -24,7 +24,7 @@ if __name__ == '__main__':
     print(zip(range(0,6),range(0,5)))
 
     for x,c in zip(range(0,6),range(0,5)):
-        print(x,c)
+        print(x)
 
     '''结果
     0 0

@@ -78,7 +78,7 @@ if __name__ == '__main__':
         page_text = requests.get(url=video_url, headers=headers).text
         print(page_text)
         platform = '快手'
-        title = re.findall('<title>(.*?)</title>',page_text)
+        title = re.findall('<title>(.*?)</title>', page_text)
         counter = re.findall('<title>(.*?)</title>', page_text)
 
         video_detaillist.append(title)

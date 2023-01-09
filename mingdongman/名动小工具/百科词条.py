@@ -21,7 +21,7 @@ FILE_PATH_DICT = {
     '浏览器驱动': r'C:\Program Files\Google\Chrome\Application\chromedriver.exe',
     '浏览器个人配置':r'G:\Selenium_UserData\Mdm\one',
     '百科词条': r'\\Win-pp19bi8ic9t\g\流量部\官网改版\绘画自学&社区&百科\内容储备\百科\百科词条.xlsx',
-    '共享盘资源': r'C:\Users\Adminitrator03\Desktop\baikeform',
+    '共享盘资源': r'C:\Users\Adminitrator03\Desktop\baike',
 
 }
 

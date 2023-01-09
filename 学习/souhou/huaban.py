@@ -1106,10 +1106,10 @@ if __name__ == '__main__':
     #     break
 
     a = HuaBanClass()
-    startId = 6320
+    startId = 6340
     for userName, userPass in [['18613118817', 'mingdongman2022']]:
         # 请求数据
-        successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=20, arcrankInt=0)
+        successData = IllustrationWorkClassAPI().Query(articleIdInt=startId + 1, inquireIndex=100, arcrankInt=0)
         if isinstance(successData, str):
             logging.info(f'请求失败：{successData}')
 
